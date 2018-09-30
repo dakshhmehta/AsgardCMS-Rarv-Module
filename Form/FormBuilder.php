@@ -72,9 +72,11 @@ class FormBuilder
 
             return $this->form->getRepository()->create($data);
 
-            $route = 'admin.' . $this->form->getModule() . '.' . $this->form->getModule().'index';
+            $route = 'admin.' . $this->form->getModule() . '.' . $this->form->getModule().'.index';
             return redirect()->route($route);
         }
+
+        // @todo handle update
 
         return $this;
     }
