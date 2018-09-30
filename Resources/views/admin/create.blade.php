@@ -12,7 +12,7 @@
 @stop
 
 @section('content')
-    {!! Form::open(['route' => ['admin.faq.faq.store'], 'method' => 'post']) !!}
+    {!! Form::open(['url' => $route, 'method' => 'post']) !!}
     <div class="row">
         <div class="col-md-12">
             <div class="nav-tabs-custom">
@@ -22,7 +22,7 @@
                     @foreach (LaravelLocalization::getSupportedLocales() as $locale => $language)
                         <?php $i++; ?>
                         <div class="tab-pane {{ locale() == $locale ? 'active' : '' }}" id="tab_{{ $i }}">
-                            @include('faq::admin.faqs.partials.create-fields', ['lang' => $locale])
+                            @include('rarv::admin.partials.create-fields', ['lang' => $locale])
                         </div>
                     @endforeach
 

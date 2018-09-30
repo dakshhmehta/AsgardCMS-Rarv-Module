@@ -2,16 +2,23 @@
 
 namespace Modules\Rarv\Form;
 
+use Illuminate\Support\ViewErrorBag;
+
 class Field
 {
-    private $name;
-    private $type;
-    private $parameters;
+    protected $name;
+    protected $type;
+    protected $label;
+    protected $parameters;
+
+    protected $rules = [];
+    protected $value;
 
     public function __construct($name, $type, $parameters = [])
     {
         $this->name = $name;
-        $this->type = $type;
+        $this->setType($type);
+
         $this->parameters = $parameters;
     }
 
@@ -56,8 +63,8 @@ class Field
             'normalSelect', 'normalFile',
         ];
 
-        if(! in_array($type, $validTypes)){
-            throw new \Exception('Invalid field type given', -1);            
+        if (!in_array($type, $validTypes)) {
+            throw new \Exception('Invalid field type given', -1);
         }
 
         $this->type = $type;
@@ -81,6 +88,95 @@ class Field
     public function setParameters($parameters)
     {
         $this->parameters = $parameters;
+
+        return $this;
+    }
+
+    public function render()
+    {
+        $builder = app('form');
+
+        $errors = session()->get('errors', new ViewErrorBag);
+
+        $parameters = array_merge([
+            $this->name,
+            $this->label,
+            $errors,
+        ], $this->parameters);
+
+        $html = $builder->macroCall($this->type, $parameters);
+
+        return $html;
+    }
+
+    /**
+     * @return array
+     */
+    public function getRules()
+    {
+        return $this->rules;
+    }
+
+    /**
+     * @param array $rules
+     *
+     * @return self
+     */
+    public function setRules(array $rules)
+    {
+        $this->rules = $rules;
+
+        return $this;
+    }
+
+    public function setValue($value)
+    {
+        $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        if (!$this->value) {
+            $this->value = request()->get($this->name, null);
+        }
+
+        return $this->value;
+    }
+
+    public function validate()
+    {
+        $validator = app('validator')->make([
+            $this->name => $this->getValue(),
+        ], [
+            $this->name => $this->rules,
+        ]);
+
+        return $validator->passes();
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLabel()
+    {
+        return $this->label;
+    }
+
+    /**
+     * @param string $label
+     *
+     * @return self
+     */
+    public function setLabel(string $label)
+    {
+        $this->label = $label;
 
         return $this;
     }

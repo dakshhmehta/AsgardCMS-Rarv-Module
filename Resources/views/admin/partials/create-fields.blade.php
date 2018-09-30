@@ -1,5 +1,5 @@
 <div class="box-body">
-    <p>
-        Your fields //
-    </p>
+	@foreach($fields as &$field)
+		{!! $field->render() !!}
+	@endforeach
 </div>
