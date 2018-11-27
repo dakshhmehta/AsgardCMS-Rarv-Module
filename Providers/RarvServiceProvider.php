@@ -31,6 +31,9 @@ class RarvServiceProvider extends ServiceProvider
         $this->app['events']->listen(LoadingBackendTranslations::class, function (LoadingBackendTranslations $event) {
             // append translations
         });
+
+        require_once __DIR__.'/../includes/helpers.php';
+        require_once __DIR__.'/../includes/macros.php';
     }
 
     public function boot()

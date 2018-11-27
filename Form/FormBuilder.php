@@ -86,7 +86,7 @@ class FormBuilder
         if ($this->mode == 'create') {
             return route('admin.' . $this->form->getModule() . '.' . $this->form->getModule() . '.store');
         } else {
-            return route('admin.' . $this->form->getModule() . '.' . $this->form->getModule() . '.' . $type);
+            return route('admin.' . $this->form->getModule() . '.' . $this->form->getModule() . '.update'); // @todo test case missing
         }
     }
 }
