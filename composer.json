@@ -12,7 +12,8 @@
         "phpunit/phpunit": "~6.0",
         "orchestra/testbench": "3.5.*",
         "phpspec/phpspec": "^4.0",
-        "benconstable/phpspec-laravel": "~4.0"
+        "benconstable/phpspec-laravel": "~4.0",
+        "laravelcollective/html": "~5.5"
     },
     "autoload-dev": {
         "psr-4": {

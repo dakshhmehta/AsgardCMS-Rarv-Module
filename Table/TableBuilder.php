@@ -32,26 +32,44 @@ class TableBuilder
             throw new \Exception('Table not set', -1);
         }
 
-        $module    = $this->table->getModule();
-        $pageTitle = $module . '::' . str_plural($module) . '.title.' . str_plural($module);
-
+        $module  = $this->getModule();
+        $entity  = $this->getEntity();
+        $buttons = $this->table->getButtons();
         $columns = $this->table->getColumns();
         $records = $this->table->getRecords();
         $headers = $this->getHeaders();
 
-        return view('rarv::table', compact('pageTitle', 'records', 'headers', 'columns'));
+        return view('rarv::table', compact('module', 'entity', 'records', 'headers', 'columns', 'buttons'));
     }
 
     public function getHeaders()
     {
         $columns = [];
 
-        $module = $this->table->getModule();
+        $module = $this->getModule();
 
         foreach ($this->table->getColumns() as &$column) {
-            $columns[] = $module . '::' . str_plural($module) . '.table.columns.' . $column;
+            $columns[] = $module . '::' . $this->getEntity() . '.table.columns.' . $column;
         }
 
         return $columns;
+    }
+
+    public function getEntity()
+    {
+        $module = explode('.', $this->table->getModule());
+
+        if (isset($module[1])) {
+            return $module[1];
+        }
+
+        return str_plural($module);
+    }
+
+    public function getModule()
+    {
+        $module = explode('.', $this->table->getModule());
+
+        return $module[0];
     }
 }

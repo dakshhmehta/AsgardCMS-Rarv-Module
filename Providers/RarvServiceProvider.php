@@ -32,8 +32,6 @@ class RarvServiceProvider extends ServiceProvider
             // append translations
         });
 
-        require_once __DIR__.'/../includes/helpers.php';
-        require_once __DIR__.'/../includes/macros.php';
     }
 
     public function boot()
@@ -41,6 +39,10 @@ class RarvServiceProvider extends ServiceProvider
         $this->publishConfig('rarv', 'permissions');
 
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
+        
+        require_once __DIR__.'/../includes/helpers.php';
+        require_once __DIR__.'/../includes/macros.php';
+        require_once __DIR__.'/../includes/validation_rules.php';
     }
 
     /**
@@ -55,6 +57,6 @@ class RarvServiceProvider extends ServiceProvider
 
     private function registerBindings()
     {
-// add bindings
+
     }
 }

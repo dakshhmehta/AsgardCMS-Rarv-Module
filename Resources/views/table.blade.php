@@ -2,11 +2,11 @@
 
 @section('content-header')
     <h1>
-        {{ trans($pageTitle) }}
+        {{ trans($module.'::'.$entity.'.title.'.$entity) }}
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> {{ trans('core::core.breadcrumb.home') }}</a></li>
-        <li class="active">{{ trans('faq::faqs.title.faqs') }}</li>
+        <li class="active">{{ trans($module.'::'.$entity.'.title.'.$entity) }}</li>
     </ol>
 @stop
 
@@ -15,9 +15,14 @@
         <div class="col-xs-12">
             <div class="row">
                 <div class="btn-group pull-right" style="margin: 0 15px 15px 0;">
-                    <a href="{{ route('admin.faq.faq.create') }}" class="btn btn-primary btn-flat" style="padding: 4px 10px;">
-                        <i class="fa fa-pencil"></i> {{ trans('faq::faqs.button.create faq') }}
+                    @foreach($buttons as &$button)
+                    <a href="{{ $button->getURL() }}" class="btn btn-{{ $button->getColor() }} btn-flat" style="padding: 4px 10px;">
+                        @if($button->getIcon() != '')
+                        <i class="{{ $button->getIcon() }}"></i>
+                        @endif
+                        &nbsp;{{ $button->getLabel() }}
                     </a>
+                    @endforeach
                 </div>
             </div>
             <div class="box box-primary">
@@ -29,7 +34,6 @@
                         <table class="data-table table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>{{ trans('core::core.table.created at') }}</th>
                                 @foreach($headers as &$header)
                                 <th>{{ trans($header) }}</th>
                                 @endforeach
@@ -40,11 +44,6 @@
                             <?php if (isset($records)): ?>
                             <?php foreach ($records as $record): ?>
                             <tr>
-                                <td>
-                                    <a href="{{ route('admin.faq.faq.edit', [$record->id]) }}">
-                                        {{ $record->created_at }}
-                                    </a>
-                                </td>
                                 @foreach($columns as &$column)
                                 <td>{!! $record->{$column} !!}</td>
                                 @endforeach
@@ -60,7 +59,6 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <th>{{ trans('core::core.table.created at') }}</th>
                                 @foreach($headers as &$header)
                                 <th>{{ trans($header) }}</th>
                                 @endforeach

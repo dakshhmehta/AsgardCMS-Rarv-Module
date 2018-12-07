@@ -2,15 +2,26 @@
 
 namespace Modules\Rarv\Table;
 
+use Modules\Rarv\Button\Button;
+use Modules\Rarv\Button\Repositories\CreateButton;
+
 class Table
 {
     protected $repository;
     protected $columns = [];
     protected $module;
+    protected $buttons = [];
 
     public function __construct($module)
     {
         $this->module = $module;
+
+        $this->prepareButtons();
+    }
+
+    protected function prepareButtons()
+    {
+        $this->addButton(new CreateButton($this));
     }
 
     public function setColumns(array $columns)
@@ -88,5 +99,33 @@ class Table
         $records = $this->getRepository()->paginate();
 
         return $records;
+    }
+
+    public function setButtons(array $buttons)
+    {
+        foreach ($buttons as &$b) {
+            if($b instanceof Button){
+                $this->addButton($b);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getButtons()
+    {
+        return $this->buttons;
+    }
+
+    public function addButton(Button $button)
+    {
+        if(! in_array($button, $this->buttons)){
+            $this->buttons[] = $button;
+        }
+
+        return $this;
     }
 }
