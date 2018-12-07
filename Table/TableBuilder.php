@@ -63,7 +63,7 @@ class TableBuilder
             return $module[1];
         }
 
-        return str_plural($module);
+        return str_plural($module[0]);
     }
 
     public function getModule()

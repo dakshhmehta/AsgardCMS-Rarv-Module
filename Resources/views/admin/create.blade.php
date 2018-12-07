@@ -2,12 +2,12 @@
 
 @section('content-header')
     <h1>
-        {{ $pageTitle }}
+        {{ trans($module.'::'.$entity.'.title.create '.$entity) }}
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> {{ trans('core::core.breadcrumb.home') }}</a></li>
-        <li><a href="{{ route('admin.faq.faq.index') }}">{{ trans('faq::faqs.title.faqs') }}</a></li>
-        <li class="active">{{ trans('faq::faqs.title.create faq') }}</li>
+        <li><a href="{{ route('admin.faq.faq.index') }}">{{ trans($module.'::'.$entity.'.title.'.$entity) }}</a></li>
+        <li class="active">{{ trans($module.'::'.$entity.'.title.create '.$entity) }}</li>
     </ol>
 @stop
 

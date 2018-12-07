@@ -10,6 +10,7 @@ class Form
     protected $fields = [];
     protected $route;
     protected $errors;
+    protected $entity;
 
     protected $repository;
 
@@ -20,11 +21,6 @@ class Form
         $this->errors = new ViewErrorBag;
 
         static::boot();
-    }
-
-    public function getModule()
-    {
-        return $this->module;
     }
 
     public function setModule($module)
@@ -148,5 +144,23 @@ class Form
         $this->repository = $repository;
 
         return $this;
+    }
+
+    public function getEntity()
+    {
+        $module = explode('.', $this->module);
+
+        if (isset($module[1])) {
+            return $module[1];
+        }
+
+        return str_plural($module[0]);
+    }
+
+    public function getModule()
+    {
+        $module = explode('.', $this->module);
+
+        return $module[0];
     }
 }

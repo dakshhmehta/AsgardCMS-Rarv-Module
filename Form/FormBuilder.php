@@ -41,7 +41,8 @@ class FormBuilder
             throw new \Exception('Form is not defined', -1);
         }
 
-        $pageTitle = trans($this->form->getModule() . '::' . str_plural($this->form->getModule()) . '.title.create ' . $this->form->getModule());
+        $module = $this->form->getModule();
+        $entity = $this->form->getEntity();
 
         $route = $this->form->getRoute();
 
@@ -51,7 +52,7 @@ class FormBuilder
 
         $fields = $this->form->getFields();
 
-        return view('rarv::admin.' . $this->mode, compact('pageTitle', 'route', 'fields'));
+        return view('rarv::admin.' . $this->mode, compact('module', 'entity', 'route', 'fields'));
     }
 
     public function handle()
@@ -84,9 +85,9 @@ class FormBuilder
     public function prepareRoute()
     {
         if ($this->mode == 'create') {
-            return route('admin.' . $this->form->getModule() . '.' . $this->form->getModule() . '.store');
+            return route('admin.' . $this->form->getModule() .'.'. $this->form->getEntity() . '.store');
         } else {
-            return route('admin.' . $this->form->getModule() . '.' . $this->form->getModule() . '.update'); // @todo test case missing
+            return route('admin.' . $this->form->getModule() .'.'. $this->form->getEntity() . '.update'); // @todo test case missing
         }
     }
 }
