@@ -49,8 +49,8 @@
                                 @endforeach
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('admin.faq.faq.edit', [$record->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
-                                        <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.faq.faq.destroy', [$record->id]) }}"><i class="fa fa-trash"></i></button>
+                                        <a href="{{ route('admin.'.$module.'.'.$entity.'.edit', [$record->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
+                                        <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.'.$module.'.'.$entity.'.destroy', [$record->id]) }}"><i class="fa fa-trash"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -88,13 +88,13 @@
 
 @push('js-stack')
     <script type="text/javascript">
-        $( document ).ready(function() {
+        /*$( document ).ready(function() {
             $(document).keypressAction({
                 actions: [
                     { key: 'c', route: "<?= route('admin.faq.faq.create') ?>" }
                 ]
             });
-        });
+        });*/
     </script>
     <?php $locale = locale(); ?>
     <script type="text/javascript">
