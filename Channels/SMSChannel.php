@@ -3,31 +3,47 @@
 namespace Modules\Rarv\Channels;
 
 use Illuminate\Notifications\Notification;
-use Modules\Rarv\CUrl;
 
 class SMSChannel
 {
-	public function send($notifiable, Notification $notification)
-	{
-		$message = $notification->toSMS($notifiable);
+    public function send($notifiable, Notification $notification)
+    {
+        $message = $notification->toSMS($notifiable);
 
         $api_url = config('asgard.rarv.config.sms_api_url');
 
         $api_url = str_replace('##mobileNo##', $message->getMobileNo(), $api_url);
         $api_url = str_replace('##senderId##', setting('rarv::sender_id'), $api_url);
         $api_url = str_replace('##apiKey##', setting('rarv::api_key'), $api_url);
-        $api_url = str_replace('##message##', $message->getMessage(), $api_url);
-
+        $api_url = str_replace('##message##', urlencode($message->getMessage()), $api_url);
 
         \Log::debug($api_url);
 
         // Get cURL resource
-        $curl = new CUrl;
-        $curl->to($api_url);
-        $resp = $curl->get();
+        $curl = curl_init();
 
-        \Log::debug($resp);
+        curl_setopt_array($curl, array(
+            CURLOPT_PORT           => "80",
+            CURLOPT_URL            => trim($api_url),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING       => "",
+            CURLOPT_MAXREDIRS      => 10,
+            CURLOPT_TIMEOUT        => 30,
+            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST  => "GET",
+            CURLOPT_HTTPHEADER     => array(
+                "Cache-Control: no-cache",
+            ),
+        ));
 
-        return $resp;
-	}
+        $response = curl_exec($curl);
+        $err      = curl_error($curl);
+
+        curl_close($curl);
+
+        \Log::debug($response);
+        \Log::debug($err);
+
+        return $response;
+    }
 }

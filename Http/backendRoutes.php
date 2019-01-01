@@ -1,8 +1,8 @@
 <?php
 
-use App\Notifications\SendSMS;
 use Illuminate\Routing\Router;
 use Modules\Rarv\Entities\User;
+use Modules\Rarv\Notifications\SendSMS;
 /** @var Router $router */
 
 $router->group(['prefix' => '/rarv'], function (Router $router) {
