@@ -36,7 +36,9 @@ class RarvServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $this->publishConfig('rarv', 'config');
         $this->publishConfig('rarv', 'permissions');
+        $this->publishConfig('rarv', 'settings');
 
         $this->loadMigrationsFrom(__DIR__ . '/../Database/Migrations');
         
