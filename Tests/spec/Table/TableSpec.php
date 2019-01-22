@@ -23,17 +23,17 @@ class TableSpec extends LaravelObjectBehavior
 
     public function it_can_set_get_repository()
     {
-    	$this->setRepository(PageRepository::class)->getRepository()
-    		->shouldBeAnInstanceOf(PageRepository::class);
+        $this->setRepository(PageRepository::class)->getRepository()
+            ->shouldBeAnInstanceOf(PageRepository::class);
     }
 
     public function it_can_set_get_columns()
     {
-    	$this->setColumns([
-    		'id', 'question'
-    	]);
+        $this->setColumns([
+            'id', 'question'
+        ]);
 
-    	$this->addColumn('answer')->getColumns()->shouldHaveCount(3);
+        $this->addColumn('answer')->getColumns()->shouldHaveCount(3);
     }
 
     public function it_can_return_records()

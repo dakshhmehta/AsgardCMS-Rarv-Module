@@ -13,7 +13,7 @@ class FormSpec extends LaravelObjectBehavior
 {
     public function let()
     {
-    	$this->beConstructedWith('faq.faqs');
+        $this->beConstructedWith('faq.faqs');
     }
 
     function it_is_initializable()
@@ -23,12 +23,12 @@ class FormSpec extends LaravelObjectBehavior
 
     public function it_has_defined_module()
     {
-    	$this->getModule()->shouldBeString();
+        $this->getModule()->shouldBeString();
     }
 
     public function it_can_define_module()
     {
-    	$this->setModule('faq')->getModule()->shouldBe('faq');
+        $this->setModule('faq')->getModule()->shouldBe('faq');
     }
 
     public function it_can_return_correct_entity()
@@ -38,27 +38,27 @@ class FormSpec extends LaravelObjectBehavior
 
     public function it_can_set_get_field()
     {
-    	$questionField = new Field('question', 'normalInput');
-    	$this->setField($questionField)
+        $questionField = new Field('question', 'normalInput');
+        $this->setField($questionField)
             ->getName()->shouldBe('question');
 
-    	$this->setField('question', 'normalInput')
-    		->getName()->shouldBe('question');
+        $this->setField('question', 'normalInput')
+            ->getName()->shouldBe('question');
     }
 
     public function it_can_set_get_fields()
     {
-		$questionField = new Field('question', 'normalInput');
-		$answerField = new Field('answer', 'normalTextarea');
-    	$this->setFields([
-    		$questionField,
-    		$answerField
-    	])->getFields()->shouldHaveCount(2);
+        $questionField = new Field('question', 'normalInput');
+        $answerField = new Field('answer', 'normalTextarea');
+        $this->setFields([
+            $questionField,
+            $answerField
+        ])->getFields()->shouldHaveCount(2);
     }
 
     public function it_has_boot_method()
     {
-    	$this->boot()->shouldReturn(true);
+        $this->boot()->shouldReturn(true);
     }
 
     public function it_can_get_set_route()

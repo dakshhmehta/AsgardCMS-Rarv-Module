@@ -20,12 +20,12 @@ class VariableParserSpec extends LaravelObjectBehavior
 
     public function it_can_parse_basic_attributes()
     {
-    	$user = new User([
-    		'first_name' => 'Daksh',
+        $user = new User([
+            'first_name' => 'Daksh',
             'last_name' => 'Mehta',
-    	]);
+        ]);
 
-    	$this->parse('Hello ##first_name## ##last_name##', $user)->shouldReturn('Hello Daksh Mehta');
+        $this->parse('Hello ##first_name## ##last_name##', $user)->shouldReturn('Hello Daksh Mehta');
     }
 
     public function it_can_extract_correct_variables()

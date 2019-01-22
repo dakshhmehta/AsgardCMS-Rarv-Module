@@ -17,15 +17,15 @@ class CreateButtonSpec extends LaravelObjectBehavior
 
     public function let()
     {
-    	$table = new Table('accounting.invoices');
-    	$this->beConstructedWith($table);
+        $table = new Table('accounting.invoices');
+        $this->beConstructedWith($table);
     }
 
     public function it_can_get_correct_info()
     {
-    	$this->getLabel()->shouldBe('Add');
-    	$this->getUrl()->shouldBeString();
-    	$this->getColor()->shouldBe('success');
-    	$this->getIcon()->shouldBe('fa fa-plus');
+        $this->getLabel()->shouldBe('Add');
+        $this->getUrl()->shouldBeString();
+        $this->getColor()->shouldBe('success');
+        $this->getIcon()->shouldBe('fa fa-plus');
     }
 }
