@@ -51,7 +51,7 @@ class Table
      */
     public function getRepository()
     {
-        if(is_string($this->repository)){
+        if (is_string($this->repository)) {
             $this->repository = app()->make($this->repository);
         }
 
@@ -65,7 +65,7 @@ class Table
      */
     public function setRepository($repository)
     {
-        if(is_string($repository)){
+        if (is_string($repository)) {
             $repository = app()->make($repository);
         }
 
@@ -104,7 +104,7 @@ class Table
     public function setButtons(array $buttons)
     {
         foreach ($buttons as &$b) {
-            if($b instanceof Button){
+            if ($b instanceof Button) {
                 $this->addButton($b);
             }
         }
@@ -122,7 +122,7 @@ class Table
 
     public function addButton(Button $button)
     {
-        if(! in_array($button, $this->buttons)){
+        if (! in_array($button, $this->buttons)) {
             $this->buttons[] = $button;
         }
 

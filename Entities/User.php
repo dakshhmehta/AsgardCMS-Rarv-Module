@@ -7,5 +7,5 @@ use Modules\User\Entities\Sentinel\User as BaseUser;
 
 class User extends BaseUser
 {
-	use Notifiable;
+    use Notifiable;
 }

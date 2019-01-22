@@ -6,33 +6,32 @@ use Illuminate\Routing\Controller;
 
 class EventsController extends Controller
 {
-	public function trigger($action, $id)
-	{
-		$action = explode('.', $action);
-		$module = ucfirst($action[0]);
+    public function trigger($action, $id)
+    {
+        $action = explode('.', $action);
+        $module = ucfirst($action[0]);
 
-		unset($action[0]);
+        unset($action[0]);
 
-		$action = implode('\\', $action);
+        $action = implode('\\', $action);
 
-		$classPath = 'Modules\\'.$module.'\\Events\\'.$action;
+        $classPath = 'Modules\\'.$module.'\\Events\\'.$action;
 
-		$data = [
-			'errors' => false,
-			'message' => 'Notification sent successfully.',
-		];
+        $data = [
+            'errors' => false,
+            'message' => 'Notification sent successfully.',
+        ];
 
-		try {		
-			dispatch(new $classPath($id));
-		}
-		catch(\Exception $e){
-			$data = [
-				'errors' => $e->getMessage(),
-				'message' => 'Invalid notification',
-			];
-		}
+        try {
+            dispatch(new $classPath($id));
+        } catch (\Exception $e) {
+            $data = [
+                'errors' => $e->getMessage(),
+                'message' => 'Invalid notification',
+            ];
+        }
 
 
-		return response()->json($data);
-	}
+        return response()->json($data);
+    }
 }

@@ -9,7 +9,7 @@ class VariableParser
         $variables = $this->extractVariables($message);
 
         foreach ($variables as &$var) {
-        	$message = str_replace('##'.$var.'##', $model->{$var}, $message);
+            $message = str_replace('##'.$var.'##', $model->{$var}, $message);
         }
 
         return $message;
@@ -17,12 +17,12 @@ class VariableParser
 
     public function extractVariables($message)
     {
-    	preg_match_all('/##([a-zA-Z0-9_]*)##/i', $message, $variables);
+        preg_match_all('/##([a-zA-Z0-9_]*)##/i', $message, $variables);
 
-    	if(! isset($variables[1])){
-    		return false;
-    	}
+        if (! isset($variables[1])) {
+            return false;
+        }
 
-    	return $variables[1];
+        return $variables[1];
     }
 }

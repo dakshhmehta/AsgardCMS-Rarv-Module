@@ -4,10 +4,10 @@ namespace Modules\Rarv\Button;
 
 class Button
 {
-	protected $url;
-	protected $label;
-	protected $color = 'primary';
-	protected $icon;
+    protected $url;
+    protected $label;
+    protected $color = 'primary';
+    protected $icon;
 
     public function __construct($label, $url)
     {
@@ -70,9 +70,9 @@ class Button
      */
     public function setColor($color)
     {
-    	if(! in_array($color, ['success', 'danger', 'warning', 'info', 'primary'])){
-    		throw new \Exception('Invalid color specified', -1);
-    	}
+        if (! in_array($color, ['success', 'danger', 'warning', 'info', 'primary'])) {
+            throw new \Exception('Invalid color specified', -1);
+        }
 
         $this->color = $color;
 

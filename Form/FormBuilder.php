@@ -41,7 +41,7 @@ class FormBuilder
             throw new \Exception('Form is not defined', -1);
         }
 
-        if($this->mode == 'edit' and !$this->form->getModel()){
+        if ($this->mode == 'edit' and !$this->form->getModel()) {
             throw new \Exception('Model not set for editing', -1);
         }
 
@@ -80,10 +80,9 @@ class FormBuilder
 
         if ($this->mode == 'create') {
             $this->form->getRepository()->create($data);
-        }
-        else {
-            if(! $this->form->getModel()){
-                throw new \Exception('No model set for the editing', -1);            
+        } else {
+            if (! $this->form->getModel()) {
+                throw new \Exception('No model set for the editing', -1);
             }
             
             $this->form->getRepository()->update($this->form->getModel(), $data);

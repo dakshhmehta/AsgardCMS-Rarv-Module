@@ -31,7 +31,6 @@ class RarvServiceProvider extends ServiceProvider
         $this->app['events']->listen(LoadingBackendTranslations::class, function (LoadingBackendTranslations $event) {
             // append translations
         });
-
     }
 
     public function boot()
@@ -59,6 +58,5 @@ class RarvServiceProvider extends ServiceProvider
 
     private function registerBindings()
     {
-
     }
 }

@@ -41,8 +41,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php if (isset($records)): ?>
-                            <?php foreach ($records as $record): ?>
+                            <?php if (isset($records)) : ?>
+                                <?php foreach ($records as $record) : ?>
                             <tr>
                                 @foreach($columns as &$column)
                                 <td>{!! $record->{$column} !!}</td>
@@ -54,7 +54,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
                             <?php endif; ?>
                             </tbody>
                             <tfoot>

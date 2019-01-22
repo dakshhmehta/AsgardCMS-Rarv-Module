@@ -7,20 +7,20 @@ use Modules\Rarv\Table\Table;
 
 class CreateButton extends Button
 {
-	private $table;
-	protected $label = 'Add';
-	protected $icon = 'fa fa-plus';
-	protected $color = 'success';
+    private $table;
+    protected $label = 'Add';
+    protected $icon = 'fa fa-plus';
+    protected $color = 'success';
 
-	public function __construct(Table $table)
-	{
-		$this->table = $table;
-	}
+    public function __construct(Table $table)
+    {
+        $this->table = $table;
+    }
 
-	
+    
 
-	public function getUrl()
-	{
-		return route('admin.'.$this->table->getModule().'.create');
-	}
+    public function getUrl()
+    {
+        return route('admin.'.$this->table->getModule().'.create');
+    }
 }

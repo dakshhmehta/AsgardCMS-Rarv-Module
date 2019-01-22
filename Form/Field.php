@@ -198,11 +198,11 @@ class Field
      */
     public function setColumn($column)
     {
-        if($column >= 1 and $column <= 12){
+        if ($column >= 1 and $column <= 12) {
             $this->column = $column;
             return $this;
         }
 
-        throw new \Exception('Invalid column set for "'.$this->label.'" field', -1);        
+        throw new \Exception('Invalid column set for "'.$this->label.'" field', -1);
     }
 }

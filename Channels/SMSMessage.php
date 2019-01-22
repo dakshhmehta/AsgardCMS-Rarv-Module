@@ -6,16 +6,16 @@ use Modules\Rarv\Parser\VariableParser;
 
 class SMSMessage
 {
-	private $mobile_no;
-	private $message;
+    private $mobile_no;
+    private $message;
     private $model = null;
 
-	public function __construct($mobile_no, $message, $model = null)
-	{
-		$this->mobile_no = $mobile_no;
+    public function __construct($mobile_no, $message, $model = null)
+    {
+        $this->mobile_no = $mobile_no;
         $this->model = $model;
 
-		$this->setMessage($message);
+        $this->setMessage($message);
     }
 
     /**
@@ -53,7 +53,7 @@ class SMSMessage
      */
     public function setMessage($message)
     {
-        if($this->model){
+        if ($this->model) {
             $parser = new VariableParser;
             $message = $parser->parse($message, $this->model);
         }

@@ -10,8 +10,9 @@ if (!function_exists('carbon')) {
     }
 }
 
-if(! function_exists('assetManager')){
-	function assetManager(){
-		return app(AssetPipeline::class);
-	}
+if (! function_exists('assetManager')) {
+    function assetManager()
+    {
+        return app(AssetPipeline::class);
+    }
 }

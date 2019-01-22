@@ -34,8 +34,8 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <?php if (isset($faqs)): ?>
-                            <?php foreach ($faqs as $faq): ?>
+                            <?php if (isset($faqs)) : ?>
+                                <?php foreach ($faqs as $faq) : ?>
                             <tr>
                                 <td>
                                     <a href="{{ route('admin.faq.faq.edit', [$faq->id]) }}">
@@ -49,7 +49,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
                             <?php endif; ?>
                             </tbody>
                             <tfoot>

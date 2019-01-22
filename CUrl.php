@@ -1,10 +1,11 @@
-<?php 
+<?php
 
 namespace Modules\Rarv;
 
 use stdClass;
 
-class CUrl {
+class CUrl
+{
 
     /** @var resource $curlObject       cURL request */
     protected $curlObject = null;
@@ -49,7 +50,7 @@ class CUrl {
      */
     public function to($url)
     {
-        return $this->withCurlOption( 'URL', $url );
+        return $this->withCurlOption('URL', $url);
     }
 
     /**
@@ -60,7 +61,7 @@ class CUrl {
      */
     public function withTimeout($timeout = 30.0)
     {
-        return $this->withCurlOption( 'TIMEOUT_MS', ($timeout * 1000) );
+        return $this->withCurlOption('TIMEOUT_MS', ($timeout * 1000));
     }
 
     /**
@@ -71,7 +72,7 @@ class CUrl {
      */
     public function withData($data = array())
     {
-        return $this->withPackageOption( 'data', $data );
+        return $this->withPackageOption('data', $data);
     }
 
     /**
@@ -104,7 +105,7 @@ class CUrl {
      */
     public function allowRedirect()
     {
-        return $this->withCurlOption( 'FOLLOWLOCATION', true );
+        return $this->withCurlOption('FOLLOWLOCATION', true);
     }
 
     /**
@@ -116,7 +117,7 @@ class CUrl {
     public function asJson($asArray = false)
     {
         return $this->asJsonRequest()
-            ->asJsonResponse( $asArray );
+            ->asJsonResponse($asArray);
     }
 
     /**
@@ -126,7 +127,7 @@ class CUrl {
      */
     public function asJsonRequest()
     {
-        return $this->withPackageOption( 'asJsonRequest', true );
+        return $this->withPackageOption('asJsonRequest', true);
     }
 
     /**
@@ -137,8 +138,8 @@ class CUrl {
      */
     public function asJsonResponse($asArray = false)
     {
-        return $this->withPackageOption( 'asJsonResponse', true )
-            ->withPackageOption( 'returnAsArray', $asArray );
+        return $this->withPackageOption('asJsonResponse', true)
+            ->withPackageOption('returnAsArray', $asArray);
     }
 
 //    /**
@@ -160,7 +161,7 @@ class CUrl {
      */
     public function withOption($key, $value)
     {
-        return $this->withCurlOption( $key, $value );
+        return $this->withCurlOption($key, $value);
     }
 
     /**
@@ -171,7 +172,7 @@ class CUrl {
      */
     public function setCookieFile($cookieFile)
     {
-        return $this->withOption( 'COOKIEFILE', $cookieFile );
+        return $this->withOption('COOKIEFILE', $cookieFile);
     }
 
     /**
@@ -182,7 +183,7 @@ class CUrl {
      */
     public function setCookieJar($cookieJar)
     {
-        return $this->withOption( 'COOKIEJAR', $cookieJar );
+        return $this->withOption('COOKIEJAR', $cookieJar);
     }
     
     /**
@@ -235,7 +236,8 @@ class CUrl {
     public function withHeaders(array $headers)
     {
         $this->curlOptions[ 'HTTPHEADER' ] = array_merge(
-            $this->curlOptions[ 'HTTPHEADER' ], $headers
+            $this->curlOptions[ 'HTTPHEADER' ],
+            $headers
         );
 
         return $this;
@@ -249,8 +251,8 @@ class CUrl {
      */
     public function withContentType($contentType)
     {
-        return $this->withHeader( 'Content-Type: '. $contentType )
-            ->withHeader( 'Connection: Keep-Alive' );
+        return $this->withHeader('Content-Type: '. $contentType)
+            ->withHeader('Connection: Keep-Alive');
     }
 
     /**
@@ -260,7 +262,7 @@ class CUrl {
      */
     public function withResponseHeaders()
     {
-        return $this->withCurlOption( 'HEADER', TRUE );
+        return $this->withCurlOption('HEADER', true);
     }
 
     /**
@@ -270,7 +272,7 @@ class CUrl {
      */
     public function returnResponseObject()
     {
-        return $this->withPackageOption( 'responseObject', true );
+        return $this->withPackageOption('responseObject', true);
     }
 
     /**
@@ -280,7 +282,7 @@ class CUrl {
      */
     public function returnResponseArray()
     {
-        return $this->withPackageOption( 'responseArray', true );
+        return $this->withPackageOption('responseArray', true);
     }
 
     /**
@@ -291,9 +293,9 @@ class CUrl {
      */
     public function enableDebug($logFile)
     {
-        return $this->withPackageOption( 'enableDebug', true )
-            ->withPackageOption( 'debugFile', $logFile )
-            ->withOption( 'VERBOSE', true );
+        return $this->withPackageOption('enableDebug', true)
+            ->withPackageOption('debugFile', $logFile)
+            ->withOption('VERBOSE', true);
     }
 
     /**
@@ -308,18 +310,18 @@ class CUrl {
      */
     public function withProxy($proxy, $port = '', $type = '', $username = '', $password = '')
     {
-        $this->withOption( 'PROXY', $proxy );
+        $this->withOption('PROXY', $proxy);
 
-        if( !empty($port) ) {
-            $this->withOption( 'PROXYPORT', $port );
+        if (!empty($port)) {
+            $this->withOption('PROXYPORT', $port);
         }
 
-        if( !empty($type) ) {
-            $this->withOption( 'PROXYTYPE', $type );
+        if (!empty($type)) {
+            $this->withOption('PROXYTYPE', $type);
         }
 
-        if( !empty($username) && !empty($password) ) {
-            $this->withOption( 'PROXYUSERPWD', $username .':'. $password );
+        if (!empty($username) && !empty($password)) {
+            $this->withOption('PROXYUSERPWD', $username .':'. $password);
         }
 
         return $this;
@@ -332,7 +334,7 @@ class CUrl {
      */
     public function containsFile()
     {
-        return $this->withPackageOption( 'containsFile', true );
+        return $this->withPackageOption('containsFile', true);
     }
 
     /**
@@ -378,12 +380,12 @@ class CUrl {
       * @param  string $fileName
       * @return mixed
       */
-     public function download($fileName)
-     {
-         $this->packageOptions[ 'saveFile' ] = $fileName;
+    public function download($fileName)
+    {
+        $this->packageOptions[ 'saveFile' ] = $fileName;
 
-         return $this->send();
-     }
+        return $this->send();
+    }
 
     /**
      * Add POST parameters to the curlOptions array
@@ -393,13 +395,13 @@ class CUrl {
         $this->curlOptions[ 'POST' ] = true;
 
         $parameters = $this->packageOptions[ 'data' ];
-        if( !empty($this->packageOptions[ 'files' ]) ) {
-            foreach( $this->packageOptions[ 'files' ] as $key => $file ) {
-                $parameters[ $key ] = $this->getCurlFileValue( $file[ 'fileName' ], $file[ 'mimeType' ], $file[ 'postFileName'] );
+        if (!empty($this->packageOptions[ 'files' ])) {
+            foreach ($this->packageOptions[ 'files' ] as $key => $file) {
+                $parameters[ $key ] = $this->getCurlFileValue($file[ 'fileName' ], $file[ 'mimeType' ], $file[ 'postFileName']);
             }
         }
 
-        if( $this->packageOptions[ 'asJsonRequest' ] ) {
+        if ($this->packageOptions[ 'asJsonRequest' ]) {
             $parameters = json_encode($parameters);
         }
 
@@ -409,13 +411,13 @@ class CUrl {
     protected function getCurlFileValue($filename, $mimeType, $postFileName)
     {
         // PHP 5 >= 5.5.0, PHP 7
-        if( function_exists('curl_file_create') ) {
+        if (function_exists('curl_file_create')) {
             return curl_file_create($filename, $mimeType, $postFileName);
         }
 
         // Use the old style if using an older version of PHP
         $value = "@{$filename};filename=" . $postFileName;
-        if( $mimeType ) {
+        if ($mimeType) {
             $value .= ';type=' . $mimeType;
         }
 
@@ -469,58 +471,58 @@ class CUrl {
     protected function send()
     {
         // Add JSON header if necessary
-        if( $this->packageOptions[ 'asJsonRequest' ] ) {
-            $this->withHeader( 'Content-Type: application/json' );
+        if ($this->packageOptions[ 'asJsonRequest' ]) {
+            $this->withHeader('Content-Type: application/json');
         }
 
-        if( $this->packageOptions[ 'enableDebug' ] ) {
-            $debugFile = fopen( $this->packageOptions[ 'debugFile' ], 'w');
+        if ($this->packageOptions[ 'enableDebug' ]) {
+            $debugFile = fopen($this->packageOptions[ 'debugFile' ], 'w');
             $this->withOption('STDERR', $debugFile);
         }
 
         // Create the request with all specified options
         $this->curlObject = curl_init();
         $options = $this->forgeOptions();
-        curl_setopt_array( $this->curlObject, $options );
+        curl_setopt_array($this->curlObject, $options);
 
         // Send the request
-        $response = curl_exec( $this->curlObject );
+        $response = curl_exec($this->curlObject);
 
         $responseHeader = null;
-        if( $this->curlOptions[ 'HEADER' ] ) {
-            $headerSize = curl_getinfo( $this->curlObject, CURLINFO_HEADER_SIZE );
-            $responseHeader = substr( $response, 0, $headerSize );
-            $response = substr( $response, $headerSize );
+        if ($this->curlOptions[ 'HEADER' ]) {
+            $headerSize = curl_getinfo($this->curlObject, CURLINFO_HEADER_SIZE);
+            $responseHeader = substr($response, 0, $headerSize);
+            $response = substr($response, $headerSize);
         }
 
         // Capture additional request information if needed
         $responseData = array();
-        if( $this->packageOptions[ 'responseObject' ] || $this->packageOptions[ 'responseArray' ] ) {
-            $responseData = curl_getinfo( $this->curlObject );
+        if ($this->packageOptions[ 'responseObject' ] || $this->packageOptions[ 'responseArray' ]) {
+            $responseData = curl_getinfo($this->curlObject);
 
-            if( curl_errno($this->curlObject) ) {
+            if (curl_errno($this->curlObject)) {
                 $responseData[ 'errorMessage' ] = curl_error($this->curlObject);
             }
         }
 
-        curl_close( $this->curlObject );
+        curl_close($this->curlObject);
 
-        if( $this->packageOptions[ 'saveFile' ] ) {
+        if ($this->packageOptions[ 'saveFile' ]) {
             // Save to file if a filename was specified
             $file = fopen($this->packageOptions[ 'saveFile' ], 'w');
             fwrite($file, $response);
             fclose($file);
-        } else if( $this->packageOptions[ 'asJsonResponse' ] ) {
+        } else if ($this->packageOptions[ 'asJsonResponse' ]) {
             // Decode the request if necessary
             $response = json_decode($response, $this->packageOptions[ 'returnAsArray' ]);
         }
 
-        if( $this->packageOptions[ 'enableDebug' ] ) {
-            fclose( $debugFile );
+        if ($this->packageOptions[ 'enableDebug' ]) {
+            fclose($debugFile);
         }
 
         // Return the result
-        return $this->returnResponse( $response, $responseData, $responseHeader );
+        return $this->returnResponse($response, $responseData, $responseHeader);
     }
 
     /**
@@ -531,7 +533,7 @@ class CUrl {
     {
         $headers = array_filter(array_map(function ($x) {
             $arr = array_map('trim', explode(':', $x, 2));
-            if( count($arr) == 2 ) {
+            if (count($arr) == 2) {
                 return [ $arr[ 0 ] => $arr[ 1 ] ];
             }
         }, array_filter(array_map('trim', explode("\r\n", $headerString)))));
@@ -547,7 +549,7 @@ class CUrl {
      */
     protected function returnResponse($content, array $responseData = array(), $header = null)
     {
-        if( !$this->packageOptions[ 'responseObject' ] && !$this->packageOptions[ 'responseArray' ] ) {
+        if (!$this->packageOptions[ 'responseObject' ] && !$this->packageOptions[ 'responseArray' ]) {
             return $content;
         }
 
@@ -555,19 +557,19 @@ class CUrl {
         $object->content = $content;
         $object->status = $responseData[ 'http_code' ];
         $object->contentType = $responseData[ 'content_type' ];
-        if( array_key_exists('errorMessage', $responseData) ) {
+        if (array_key_exists('errorMessage', $responseData)) {
             $object->error = $responseData[ 'errorMessage' ];
         }
 
-        if( $this->curlOptions[ 'HEADER' ] ) {
-            $object->headers = $this->parseHeaders( $header );
+        if ($this->curlOptions[ 'HEADER' ]) {
+            $object->headers = $this->parseHeaders($header);
         }
 
-        if( $this->packageOptions[ 'responseObject' ] ) {
+        if ($this->packageOptions[ 'responseObject' ]) {
             return $object;
         }
 
-        if( $this->packageOptions[ 'responseArray' ] ) {
+        if ($this->packageOptions[ 'responseArray' ]) {
             return (array) $object;
         }
 
@@ -582,17 +584,17 @@ class CUrl {
     protected function forgeOptions()
     {
         $results = array();
-        foreach( $this->curlOptions as $key => $value ) {
-            $arrayKey = constant( 'CURLOPT_' . $key );
+        foreach ($this->curlOptions as $key => $value) {
+            $arrayKey = constant('CURLOPT_' . $key);
 
-            if( !$this->packageOptions[ 'containsFile' ] && $key == 'POSTFIELDS' && is_array( $value ) ) {
-                $results[ $arrayKey ] = http_build_query( $value, null, '&' );
+            if (!$this->packageOptions[ 'containsFile' ] && $key == 'POSTFIELDS' && is_array($value)) {
+                $results[ $arrayKey ] = http_build_query($value, null, '&');
             } else {
                 $results[ $arrayKey ] = $value;
             }
         }
 
-        if( !empty($this->packageOptions[ 'xDebugSessionName' ]) ) {
+        if (!empty($this->packageOptions[ 'xDebugSessionName' ])) {
             $char = strpos($this->curlOptions[ 'URL' ], '?') ? '&' : '?';
             $this->curlOptions[ 'URL' ] .= $char . 'XDEBUG_SESSION_START='. $this->packageOptions[ 'xDebugSessionName' ];
         }
@@ -608,11 +610,10 @@ class CUrl {
     protected function appendDataToURL()
     {
         $parameterString = '';
-        if( is_array($this->packageOptions[ 'data' ]) && count($this->packageOptions[ 'data' ]) != 0 ) {
-            $parameterString = '?'. http_build_query( $this->packageOptions[ 'data' ], null, '&' );
+        if (is_array($this->packageOptions[ 'data' ]) && count($this->packageOptions[ 'data' ]) != 0) {
+            $parameterString = '?'. http_build_query($this->packageOptions[ 'data' ], null, '&');
         }
 
         return $this->curlOptions[ 'URL' ] .= $parameterString;
     }
-
 }

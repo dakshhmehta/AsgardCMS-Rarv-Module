@@ -184,11 +184,10 @@ class Form
     public function populateValues()
     {
         foreach ($this->fields as &$field) {
-            try {            
+            try {
                 $value = $this->model->{$field->getName()};
                 $field->setValue($value);
-            }
-            catch(\Exception $e){
+            } catch (\Exception $e) {
                 // We just pass if attribute not found.
             }
         }
