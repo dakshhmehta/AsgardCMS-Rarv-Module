@@ -41,6 +41,12 @@ class FormBuilder
             throw new \Exception('Form is not defined', -1);
         }
 
+        if($this->mode == 'edit' and !$this->form->getModel()){
+            throw new \Exception('Model not set for editing', -1);
+        }
+
+        $this->form->populateValues();
+
         $module = $this->form->getModule();
         $entity = $this->form->getEntity();
 
@@ -52,7 +58,9 @@ class FormBuilder
 
         $fields = $this->form->getFields();
 
-        return view('rarv::admin.' . $this->mode, compact('module', 'entity', 'route', 'fields'));
+        $model = $this->form->getModel();
+
+        return view('rarv::admin.' . $this->mode, compact('module', 'entity', 'route', 'fields', 'model'));
     }
 
     public function handle()
@@ -65,21 +73,24 @@ class FormBuilder
             return redirect()->back()->withErrors($this->form->getErrors())->withInput();
         }
 
-        if ($this->mode == 'create') {
-            $data = [];
-            foreach ($this->form->getFields() as &$field) {
-                $data[$field->getName()] = $field->getValue();
-            }
-
-            return $this->form->getRepository()->create($data);
-
-            $route = 'admin.' . $this->form->getModule() . '.' . $this->form->getModule().'.index';
-            return redirect()->route($route);
+        $data = [];
+        foreach ($this->form->getFields() as &$field) {
+            $data[$field->getName()] = $field->getValue();
         }
 
-        // @todo handle update
+        if ($this->mode == 'create') {
+            $this->form->getRepository()->create($data);
+        }
+        else {
+            if(! $this->form->getModel()){
+                throw new \Exception('No model set for the editing', -1);            
+            }
+            
+            $this->form->getRepository()->update($this->form->getModel(), $data);
+        }
 
-        return $this;
+        $route = 'admin.' . $this->form->getModule() . '.' . $this->form->getModule().'.index';
+        return redirect()->route($route);
     }
 
     public function prepareRoute()
@@ -87,7 +98,7 @@ class FormBuilder
         if ($this->mode == 'create') {
             return route('admin.' . $this->form->getModule() .'.'. $this->form->getEntity() . '.store');
         } else {
-            return route('admin.' . $this->form->getModule() .'.'. $this->form->getEntity() . '.update'); // @todo test case missing
+            return route('admin.' . $this->form->getModule() .'.'. $this->form->getEntity() . '.update', $this->form->getModel()->id); // @todo test case missing
         }
     }
 }

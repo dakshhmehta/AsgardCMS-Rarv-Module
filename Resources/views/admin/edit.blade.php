@@ -2,17 +2,19 @@
 
 @section('content-header')
     <h1>
-        {{ trans('faq::faqs.title.edit faq') }}
+        {{ trans($module.'::'.$entity.'.title.edit '.$entity) }}
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-dashboard"></i> {{ trans('core::core.breadcrumb.home') }}</a></li>
-        <li><a href="{{ route('admin.faq.faq.index') }}">{{ trans('faq::faqs.title.faqs') }}</a></li>
-        <li class="active">{{ trans('faq::faqs.title.edit faq') }}</li>
+        <li><a href="{{ route('admin.'.$module.'.'.$entity.'.index') }}">
+            {{ trans($module.'::'.$entity.'.title.'.$entity) }}
+        </a></li>
+        <li class="active">{{ trans($module.'::'.$entity.'.title.edit '.$entity) }}</li>
     </ol>
 @stop
 
 @section('content')
-    {!! Form::open(['route' => ['admin.faq.faq.update', $faq->id], 'method' => 'put']) !!}
+    {!! Form::model($model, ['url' => $route, 'method' => 'put']) !!}
     <div class="row">
         <div class="col-md-12">
             <div class="nav-tabs-custom">
@@ -22,13 +24,13 @@
                     @foreach (LaravelLocalization::getSupportedLocales() as $locale => $language)
                         <?php $i++; ?>
                         <div class="tab-pane {{ locale() == $locale ? 'active' : '' }}" id="tab_{{ $i }}">
-                            @include('faq::admin.faqs.partials.edit-fields', ['lang' => $locale])
+                            @include('rarv::admin.partials.edit-fields', ['lang' => $locale])
                         </div>
                     @endforeach
 
                     <div class="box-footer">
                         <button type="submit" class="btn btn-primary btn-flat">{{ trans('core::core.button.update') }}</button>
-                        <a class="btn btn-danger pull-right btn-flat" href="{{ route('admin.faq.faq.index')}}"><i class="fa fa-times"></i> {{ trans('core::core.button.cancel') }}</a>
+                        <a class="btn btn-danger pull-right btn-flat" href="{{ route('admin.'.$module.'.'.$entity.'.index')}}"><i class="fa fa-times"></i> {{ trans('core::core.button.cancel') }}</a>
                     </div>
                 </div>
             </div> {{-- end nav-tabs-custom --}}
@@ -48,15 +50,6 @@
 @stop
 
 @push('js-stack')
-    <script type="text/javascript">
-        $( document ).ready(function() {
-            $(document).keypressAction({
-                actions: [
-                    { key: 'b', route: "<?= route('admin.faq.faq.index') ?>" }
-                ]
-            });
-        });
-    </script>
     <script>
         $( document ).ready(function() {
             $('input[type="checkbox"].flat-blue, input[type="radio"].flat-blue').iCheck({

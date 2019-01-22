@@ -2,6 +2,7 @@
 
 namespace Modules\Rarv\Form;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ViewErrorBag;
 
 class Form
@@ -11,6 +12,7 @@ class Form
     protected $route;
     protected $errors;
     protected $entity;
+    protected $model = null;
 
     protected $repository;
 
@@ -162,5 +164,33 @@ class Form
         $module = explode('.', $this->module);
 
         return $module[0];
+    }
+
+    public function setModel(Model $model)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    public function populateValues()
+    {
+        foreach ($this->fields as &$field) {
+            try {            
+                $value = $this->model->{$field->getName()};
+                $field->setValue($value);
+            }
+            catch(\Exception $e){
+                // We just pass if attribute not found.
+            }
+        }
     }
 }
