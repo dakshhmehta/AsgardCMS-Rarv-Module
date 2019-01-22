@@ -14,6 +14,8 @@ class Field
     protected $rules = [];
     protected $value;
 
+    protected $column = 12;
+
     public function __construct($name, $type, $parameters = [])
     {
         $this->name = $name;
@@ -179,5 +181,28 @@ class Field
         $this->label = $label;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getColumn()
+    {
+        return $this->column;
+    }
+
+    /**
+     * @param mixed $column
+     *
+     * @return self
+     */
+    public function setColumn($column)
+    {
+        if($column >= 1 and $column <= 12){
+            $this->column = $column;
+            return $this;
+        }
+
+        throw new \Exception('Invalid column set for "'.$this->label.'" field', -1);        
     }
 }
