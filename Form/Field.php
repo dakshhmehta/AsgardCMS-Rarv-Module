@@ -100,11 +100,15 @@ class Field
 
         $errors = session()->get('errors', new ViewErrorBag);
 
-        $parameters = array_merge([
+        $parameters = [
             $this->name,
             $this->label,
             $errors,
-        ], $this->parameters);
+        ];
+
+        if(count($this->parameters) > 0){
+            $parameters = $this->parameters;
+        }
 
         $html = $builder->macroCall($this->type, $parameters);
 

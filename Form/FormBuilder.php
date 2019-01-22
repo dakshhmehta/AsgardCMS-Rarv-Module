@@ -88,7 +88,8 @@ class FormBuilder
             $this->form->getRepository()->update($this->form->getModel(), $data);
         }
 
-        $route = 'admin.' . $this->form->getModule() . '.' . $this->form->getModule().'.index';
+        $route = 'admin.' . $this->form->getModule() . '.' . $this->form->getEntity().'.index';
+        dd($route);
         return redirect()->route($route);
     }
 
