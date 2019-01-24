@@ -16,11 +16,12 @@ class Form
 
     protected $repository;
 
-    public function __construct($module)
+    public function __construct($module, $model = null)
     {
         $this->module = $module;
 
         $this->errors = new ViewErrorBag;
+        $this->model = $model;
 
         static::boot();
     }

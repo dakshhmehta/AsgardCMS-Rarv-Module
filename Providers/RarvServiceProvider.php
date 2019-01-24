@@ -3,10 +3,11 @@
 namespace Modules\Rarv\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Modules\Core\Traits\CanPublishConfiguration;
 use Modules\Core\Events\BuildingSidebar;
 use Modules\Core\Events\LoadingBackendTranslations;
+use Modules\Core\Traits\CanPublishConfiguration;
 use Modules\Rarv\Events\Handlers\RegisterRarvSidebar;
+use Modules\Workshop\Manager\StylistThemeManager;
 
 class RarvServiceProvider extends ServiceProvider
 {
@@ -33,8 +34,17 @@ class RarvServiceProvider extends ServiceProvider
         });
     }
 
-    public function boot()
+    public function boot(StylistThemeManager $theme)
     {
+        $this->publishes([
+            __DIR__ . '/../Resources/views' => base_path('resources/views/asgard/rarv'),
+        ], 'views');
+
+        $this->app['view']->prependNamespace(
+            'rarv',
+            base_path('resources/views/asgard/rarv')
+        );
+
         $this->publishConfig('rarv', 'config');
         $this->publishConfig('rarv', 'permissions');
         $this->publishConfig('rarv', 'settings');

@@ -12,7 +12,7 @@
 @stop
 
 @section('content')
-    {!! Form::open(['url' => $route, 'method' => 'post']) !!}
+    {!! Form::open(['url' => $route, 'method' => 'post', 'files' => true]) !!}
     <div class="row">
         <div class="col-md-12">
             <div class="nav-tabs-custom">

@@ -77,7 +77,6 @@ class FormBuilder
         foreach ($this->form->getFields() as &$field) {
             $data[$field->getName()] = $field->getValue();
         }
-
         if ($this->mode == 'create') {
             $this->form->getRepository()->create($data);
         } else {
@@ -89,7 +88,6 @@ class FormBuilder
         }
 
         $route = 'admin.' . $this->form->getModule() . '.' . $this->form->getEntity().'.index';
-        dd($route);
         return redirect()->route($route);
     }
 

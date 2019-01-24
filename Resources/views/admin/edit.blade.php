@@ -14,7 +14,7 @@
 @stop
 
 @section('content')
-    {!! Form::model($model, ['url' => $route, 'method' => 'put']) !!}
+    {!! Form::model($model, ['url' => $route, 'method' => 'put', 'files' => true]) !!}
     <div class="row">
         <div class="col-md-12">
             <div class="nav-tabs-custom">
