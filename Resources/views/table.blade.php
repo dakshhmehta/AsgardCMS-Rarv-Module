@@ -49,8 +49,14 @@
                                 @endforeach
                                 <td>
                                     <div class="btn-group">
-                                        <a href="{{ route('admin.'.$module.'.'.$entity.'.edit', [$record->id]) }}" class="btn btn-default btn-flat"><i class="fa fa-pencil"></i></a>
-                                        <button class="btn btn-danger btn-flat" data-toggle="modal" data-target="#modal-delete-confirmation" data-action-target="{{ route('admin.'.$module.'.'.$entity.'.destroy', [$record->id]) }}"><i class="fa fa-trash"></i></button>
+                                        @foreach($links as &$link)
+                                        <a href="{{ $link->getURL($record) }}" class="btn btn-{{ $link->getColor() }} btn-flat">
+                                            @if($link->getIcon() != '')
+                                            <i class="{{ $link->getIcon() }}"></i>
+                                            @endif
+                                            &nbsp;{{ $link->getLabel() }}
+                                        </a>
+                                        @endforeach
                                     </div>
                                 </td>
                             </tr>

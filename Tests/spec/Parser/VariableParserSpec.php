@@ -32,4 +32,9 @@ class VariableParserSpec extends LaravelObjectBehavior
     {
         $this->extractVariables('Hi ##first## ##last##')->shouldReturn(['first', 'last']);
     }
+
+    public function it_can_parse_array()
+    {
+        $this->parse('Hello, ##name##', ['name' => 'Daksh'])->shouldBe('Hello, Daksh');
+    }
 }

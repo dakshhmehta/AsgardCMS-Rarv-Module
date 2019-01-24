@@ -7,7 +7,6 @@ use Modules\Page\Repositories\PageRepository;
 use Modules\Rarv\Button\Button;
 use Modules\Rarv\Table\Table;
 use PhpSpec\Laravel\LaravelObjectBehavior;
-use Prophecy\Argument;
 
 class TableSpec extends LaravelObjectBehavior
 {
@@ -16,7 +15,7 @@ class TableSpec extends LaravelObjectBehavior
         $this->beConstructedWith('faq');
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(Table::class);
     }
@@ -30,7 +29,7 @@ class TableSpec extends LaravelObjectBehavior
     public function it_can_set_get_columns()
     {
         $this->setColumns([
-            'id', 'question'
+            'id', 'question',
         ]);
 
         $this->addColumn('answer')->getColumns()->shouldHaveCount(3);
@@ -50,5 +49,15 @@ class TableSpec extends LaravelObjectBehavior
         // We have added two buttons, and 1 is system default for create.
         $this->setButtons([$createBtn, $deleteBtn])->getButtons()->shouldHaveCount(3);
         $this->addButton($createBtn)->getButtons()->shouldHaveCount(3);
+    }
+
+    public function it_can_set_get_actions()
+    {
+        $editBtn   = new Button('Edit', '##id##/edit');
+        $deleteBtn = new Button('Delete', '##id##/delete');
+
+        // We have added two buttons, and 1 is system default for create.
+        $this->setLinks([$editBtn, $editBtn])->getLinks()->shouldHaveCount(3);
+        $this->addLink($deleteBtn)->getLinks()->shouldHaveCount(4);
     }
 }

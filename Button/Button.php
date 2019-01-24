@@ -2,25 +2,35 @@
 
 namespace Modules\Rarv\Button;
 
-class Button
+use Modules\Rarv\Parser\VariableParser;
+
+class Button implements \ArrayAccess
 {
     protected $url;
     protected $label;
-    protected $color = 'primary';
+    protected $color;
     protected $icon;
+    protected $attributes = [];
 
-    public function __construct($label, $url)
+    public $weight = 0;
+
+    public function __construct($label, $url, $color = 'primary', $icon = null)
     {
         $this->label = $label;
         $this->url = $url;
+        $this->color = $color;
+        $this->icon = $icon;
     }
 
     /**
      * @return mixed
      */
-    public function getUrl()
+    public function getUrl($object = null)
     {
-        return $this->url;
+        $parser = new VariableParser();
+        $url = $parser->parse($this->url, $object);
+
+        return $url;
     }
 
     /**
@@ -97,5 +107,46 @@ class Button
         $this->icon = $icon;
 
         return $this;
+    }
+
+    public function setAttributes(array $atts)
+    {
+        $this->attributes = $atts;
+
+        return $this;
+    }
+
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+
+    public function getAttribute($key, $default = null)
+    {
+        if(! isset($this->attributes[$key])){
+            return $default;
+        }
+
+        return $this->attributes[$key];
+    }
+
+    public function offsetExists($offset)
+    {
+        # 
+    }
+
+    public function offsetSet($offset, $value)
+    {
+        data_set($this, $offset, $value);
+    }
+
+    public function offsetGet($offset)
+    {
+        return data_get($this, $offset);
+    }
+
+    public function offsetUnset($offset)
+    {
+        data_set($this, $offset, null);
     }
 }

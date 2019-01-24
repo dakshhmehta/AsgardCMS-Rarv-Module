@@ -4,6 +4,8 @@ namespace Modules\Rarv\Table;
 
 use Modules\Rarv\Button\Button;
 use Modules\Rarv\Button\Repositories\CreateButton;
+use Modules\Rarv\Button\Repositories\DeleteButton;
+use Modules\Rarv\Button\Repositories\EditButton;
 
 class Table
 {
@@ -11,17 +13,25 @@ class Table
     protected $columns = [];
     protected $module;
     protected $buttons = [];
+    protected $links = [];
 
     public function __construct($module)
     {
         $this->module = $module;
 
         $this->prepareButtons();
+        $this->prepareLinks();
     }
 
     protected function prepareButtons()
     {
         $this->addButton(new CreateButton($this));
+    }
+
+    protected function prepareLinks()
+    {
+        $this->addLink(new EditButton($this));
+        $this->addLink(new DeleteButton($this));
     }
 
     public function setColumns(array $columns)
@@ -117,7 +127,7 @@ class Table
      */
     public function getButtons()
     {
-        return $this->buttons;
+        return collect($this->buttons)->sortBy('weight');
     }
 
     public function addButton(Button $button)
@@ -127,5 +137,30 @@ class Table
         }
 
         return $this;
+    }
+
+    public function setLinks(array $links)
+    {
+        foreach ($links as &$b) {
+            if ($b instanceof Button) {
+                $this->addLink($b);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addLink(Button $link)
+    {
+        if (! in_array($link, $this->links)) {
+            $this->links[] = $link;
+        }
+
+        return $this;
+    }
+
+    public function getLinks()
+    {
+        return collect($this->links)->sortBy('weight');;
     }
 }

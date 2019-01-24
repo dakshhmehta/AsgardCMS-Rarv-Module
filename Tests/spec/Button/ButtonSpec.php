@@ -30,4 +30,22 @@ class ButtonSpec extends ObjectBehavior
     {
         $this->shouldThrow('\Exception')->duringSetColor('red');
     }
+
+    public function it_can_prepare_url()
+    {
+        $this->setUrl('##id##/delete')->getUrl(['id' => 123])->shouldBe('123/delete');
+    }
+
+    public function it_can_set_get_attributes()
+    {
+        $this->setAttributes(['disabled' => true])->getAttribute('disabled')->shouldBe(true);
+        $this->getAttributes()->shouldHaveCount(1);
+
+        $this->getAttribute('size', 'foo')->shouldBe('foo');
+    }
+
+    public function it_can_get_priority()
+    {
+        $this->weight->shouldBe(0);
+    }
 }

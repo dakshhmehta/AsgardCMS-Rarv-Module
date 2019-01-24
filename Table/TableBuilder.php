@@ -35,11 +35,12 @@ class TableBuilder
         $module  = $this->getModule();
         $entity  = $this->getEntity();
         $buttons = $this->table->getButtons();
+        $links = $this->table->getLinks();
         $columns = $this->table->getColumns();
         $records = $this->table->getRecords();
         $headers = $this->getHeaders();
 
-        return view('rarv::table', compact('module', 'entity', 'records', 'headers', 'columns', 'buttons'));
+        return view('rarv::table', compact('module', 'entity', 'records', 'headers', 'columns', 'buttons', 'links'));
     }
 
     public function getHeaders()
