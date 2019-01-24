@@ -59,16 +59,6 @@ class Field
      */
     public function setType($type)
     {
-        $validTypes = [
-            'i18nInput', 'i18nInputOfType', 'i18nTextarea', 'i18nCheckbox', 'i18nSelect',
-            'i18nFile', 'normalInput', 'normalInputOfType', 'normalTextarea', 'normalCheckbox',
-            'normalSelect', 'normalFile',
-        ];
-
-        if (!in_array($type, $validTypes)) {
-            throw new \Exception('Invalid field type given', -1);
-        }
-
         $this->type = $type;
 
         return $this;
@@ -106,8 +96,8 @@ class Field
             $errors,
         ];
 
-        if(count($this->parameters) > 0){
-            $parameters = $this->parameters;
+        if(count($this->getParameters()) > 0){
+            $parameters = $this->getParameters();
         }
 
         $html = $builder->macroCall($this->type, $parameters);

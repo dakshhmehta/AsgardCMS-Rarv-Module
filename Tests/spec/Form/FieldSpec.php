@@ -28,11 +28,6 @@ class FieldSpec extends LaravelObjectBehavior
         $this->setType('normalInput')->getType()->shouldBe('normalInput');
     }
 
-    public function it_can_only_accepts_the_valid_macro_fields()
-    {
-        $this->shouldThrow()->duringSetType('foo');
-    }
-
     public function it_can_be_rendered()
     {
         $this->render()->shouldBeAnInstanceOf(HtmlString::class);
