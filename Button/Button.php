@@ -149,4 +149,15 @@ class Button implements \ArrayAccess
     {
         data_set($this, $offset, null);
     }
+
+    public function getAttributesLine()
+    {
+        $data = [];
+
+        foreach ($this->getAttributes() as $key => $value) {
+            $data[] = $key.'="'.$value.'"';
+        }
+
+        return implode(' ', $data);
+    }
 }

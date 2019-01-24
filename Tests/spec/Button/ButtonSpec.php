@@ -48,4 +48,12 @@ class ButtonSpec extends ObjectBehavior
     {
         $this->weight->shouldBe(0);
     }
+
+    public function it_can_get_attributes_as_string()
+    {
+        $this->setAttributes([
+            'disabled' => 'disabled', 
+            'title' => 'Title'
+        ])->getAttributesLine()->shouldBe('disabled="disabled" title="Title"');
+    }
 }

@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="btn-group pull-right" style="margin: 0 15px 15px 0;">
                     @foreach($buttons as &$button)
-                    <a href="{{ $button->getURL() }}" class="btn btn-{{ $button->getColor() }} btn-flat" style="padding: 4px 10px;">
+                    <a href="{{ $button->getURL() }}" class="btn btn-{{ $button->getColor() }} btn-flat" style="padding: 4px 10px;" {!! $button->getAttributesLine() !!}>
                         @if($button->getIcon() != '')
                         <i class="{{ $button->getIcon() }}"></i>
                         @endif
@@ -50,7 +50,7 @@
                                 <td>
                                     <div class="btn-group">
                                         @foreach($links as &$link)
-                                        <a href="{{ $link->getURL($record) }}" class="btn btn-{{ $link->getColor() }} btn-flat">
+                                        <a href="{{ $link->getURL($record) }}" class="btn btn-{{ $link->getColor() }} btn-flat" {!! $link->getAttributesLine() !!}>
                                             @if($link->getIcon() != '')
                                             <i class="{{ $link->getIcon() }}"></i>
                                             @endif
