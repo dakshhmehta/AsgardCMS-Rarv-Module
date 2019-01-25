@@ -77,6 +77,7 @@ class FormBuilder
         foreach ($this->form->getFields() as &$field) {
             $data[$field->getName()] = $field->getValue();
         }
+
         if ($this->mode == 'create') {
             $this->form->getRepository()->create($data);
         } else {
