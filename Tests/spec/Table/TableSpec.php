@@ -5,6 +5,7 @@ namespace spec\Modules\Rarv\Table;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Modules\Page\Repositories\PageRepository;
 use Modules\Rarv\Button\Button;
+use Modules\Rarv\Form\Form;
 use Modules\Rarv\Table\Table;
 use PhpSpec\Laravel\LaravelObjectBehavior;
 
@@ -59,5 +60,11 @@ class TableSpec extends LaravelObjectBehavior
         // We have added two buttons, and 1 is system default for create.
         $this->setLinks([$editBtn, $editBtn])->getLinks()->shouldHaveCount(3);
         $this->addLink($deleteBtn)->getLinks()->shouldHaveCount(4);
+    }
+
+    public function it_can_set_get_filters()
+    {
+        $this->setFilterForm(new Form('faq.faqfilter'))->getFilterForm()->shouldBeAnInstanceOf(Form::class);
+        $this->setFilterForm(Form::class)->getFilterForm()->shouldBeAnInstanceOf(Form::class);
     }
 }

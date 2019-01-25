@@ -32,15 +32,18 @@ class TableBuilder
             throw new \Exception('Table not set', -1);
         }
 
+        $headers = $this->getHeaders();
         $module  = $this->getModule();
         $entity  = $this->getEntity();
+
         $buttons = $this->table->getButtons();
         $links = $this->table->getLinks();
         $columns = $this->table->getColumns();
         $records = $this->table->getRecords();
-        $headers = $this->getHeaders();
+        $filterForm = $this->table->getFilterForm();
 
-        return view('rarv::table', compact('module', 'entity', 'records', 'headers', 'columns', 'buttons', 'links'));
+        return view('rarv::table', compact('module', 'entity', 'records', 'headers', 'columns', 'buttons', 'links',
+            'filterForm'));
     }
 
     public function getHeaders()

@@ -6,6 +6,7 @@ use Modules\Rarv\Button\Button;
 use Modules\Rarv\Button\Repositories\CreateButton;
 use Modules\Rarv\Button\Repositories\DeleteButton;
 use Modules\Rarv\Button\Repositories\EditButton;
+use Modules\Rarv\Form\Form;
 
 class Table
 {
@@ -14,6 +15,9 @@ class Table
     protected $module;
     protected $buttons = [];
     protected $links = [];
+    protected $filterForm = null;
+
+    protected $perPage = 25;
 
     public function __construct($module)
     {
@@ -106,7 +110,7 @@ class Table
 
     public function getRecords()
     {
-        $records = $this->getRepository()->paginate();
+        $records = $this->getRepository()->paginate($this->perPage);
 
         return $records;
     }
@@ -162,5 +166,21 @@ class Table
     public function getLinks()
     {
         return collect($this->links)->sortBy('weight');;
+    }
+
+    public function setFilterForm($form)
+    {
+        if(is_string($form)){
+            $form = app($form, [$this->getModule()]);
+        }
+
+        $this->filterForm = $form;
+
+        return $this;
+    }
+
+    public function getFilterForm()
+    {
+        return $this->filterForm;
     }
 }

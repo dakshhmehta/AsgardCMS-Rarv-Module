@@ -30,8 +30,14 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            {!! $records->links() !!}
+                        </div>
+                    </div>
+
                     <div class="table-responsive">
-                        <table class="data-table table table-bordered table-hover">
+                        <table class="table table-bordered table-hover">
                             <thead>
                             <tr>
                                 @foreach($headers as &$header)
@@ -74,6 +80,12 @@
                         </table>
                         <!-- /.box-body -->
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            {!! $records->links() !!}
+                        </div>
+                    </div>
                 </div>
                 <!-- /.box -->
             </div>
@@ -85,23 +97,3 @@
 @section('footer')
     <a data-toggle="modal" data-target="#keyboardShortcutsModal"><i class="fa fa-keyboard-o"></i></a> &nbsp;
 @stop
-
-@push('js-stack')
-    <?php $locale = locale(); ?>
-    <script type="text/javascript">
-        $(function () {
-            $('.data-table').dataTable({
-                "paginate": true,
-                "lengthChange": true,
-                "filter": true,
-                "sort": true,
-                "info": true,
-                "autoWidth": true,
-                "order": [[ 0, "desc" ]],
-                "language": {
-                    "url": '<?php echo Module::asset("core:js/vendor/datatables/{$locale}.json") ?>'
-                }
-            });
-        });
-    </script>
-@endpush

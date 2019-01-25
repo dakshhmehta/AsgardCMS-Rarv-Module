@@ -27,12 +27,6 @@ class SelectField extends Field
 
     public function getValue()
     {
-    	$value = parent::getValue();
-
-    	if($value){
-    		return $value;
-    	}
-
     	$value = new \stdClass;
     	$value->{$this->getName()} = parent::getValue();
 
