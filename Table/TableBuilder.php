@@ -2,9 +2,17 @@
 
 namespace Modules\Rarv\Table;
 
+use Modules\Rarv\Form\FormBuilder;
+
 class TableBuilder
 {
     protected $table;
+    protected $formBuilder;
+
+    public function __construct()
+    {
+        $this->formBuilder = app(FormBuilder::class);
+    }
 
     /**
      * @return mixed
@@ -41,6 +49,10 @@ class TableBuilder
         $columns = $this->table->getColumns();
         $records = $this->table->getRecords();
         $filterForm = $this->table->getFilterForm();
+
+        if($filterForm){
+            $filterForm = $this->formBuilder->setForm($filterForm);
+        }
 
         return view('rarv::table', compact('module', 'entity', 'records', 'headers', 'columns', 'buttons', 'links',
             'filterForm'));

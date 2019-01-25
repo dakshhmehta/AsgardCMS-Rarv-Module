@@ -6,6 +6,7 @@ use Modules\Faq\Entities\Faq;
 use Modules\Page\Repositories\PageRepository;
 use Modules\Rarv\Form\Field;
 use Modules\Rarv\Form\Form;
+use Modules\Rarv\Form\FormBuilder;
 use PhpSpec\Laravel\LaravelObjectBehavior;
 use Prophecy\Argument;
 
@@ -100,5 +101,10 @@ class FormSpec extends LaravelObjectBehavior
         $this->populateValues();
 
         $this->getField('question')->getValue()->shouldBe('How do you do?');
+    }
+
+    public function it_has_view_path()
+    {
+        $this->viewPath(new FormBuilder())->shouldBeString();
     }
 }

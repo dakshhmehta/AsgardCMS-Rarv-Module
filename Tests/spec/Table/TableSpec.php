@@ -3,9 +3,10 @@
 namespace spec\Modules\Rarv\Table;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Modules\Faq\Http\Form\FaqFilterForm;
 use Modules\Page\Repositories\PageRepository;
 use Modules\Rarv\Button\Button;
-use Modules\Rarv\Form\Form;
+use Modules\Rarv\Form\FilterForm;
 use Modules\Rarv\Table\Table;
 use PhpSpec\Laravel\LaravelObjectBehavior;
 
@@ -64,7 +65,9 @@ class TableSpec extends LaravelObjectBehavior
 
     public function it_can_set_get_filters()
     {
-        $this->setFilterForm(new Form('faq.faqfilter'))->getFilterForm()->shouldBeAnInstanceOf(Form::class);
-        $this->setFilterForm(Form::class)->getFilterForm()->shouldBeAnInstanceOf(Form::class);
+        $this->setFilterForm(new FaqFilterForm('faq.faqfilter'))->getFilterForm()
+            ->shouldBeAnInstanceOf(FilterForm::class);
+
+        $this->setFilterForm(FaqFilterForm::class)->getFilterForm()->shouldBeAnInstanceOf(FilterForm::class);
     }
 }

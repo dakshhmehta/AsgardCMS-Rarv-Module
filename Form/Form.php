@@ -4,6 +4,7 @@ namespace Modules\Rarv\Form;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ViewErrorBag;
+use Modules\Rarv\Form\FormBuilder;
 
 class Form
 {
@@ -62,7 +63,7 @@ class Form
      *
      * @return self
      */
-    public function setFields($fields)
+    public function setFields(array $fields)
     {
         $this->fields = $fields;
 
@@ -192,5 +193,10 @@ class Form
                 // We just pass if attribute not found.
             }
         }
+    }
+
+    public function viewPath(FormBuilder $builder)
+    {
+        return 'rarv::admin.' . $builder->getMode();
     }
 }

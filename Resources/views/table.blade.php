@@ -11,6 +11,14 @@
 @stop
 
 @section('content')
+    @if($filterForm)
+    <div class="row">
+        <div class="col-xs-12">
+            {!! $filterForm->view() !!}
+        </div>
+    </div>
+    @endif
+
     <div class="row">
         <div class="col-xs-12">
             <div class="row">

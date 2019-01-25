@@ -6,15 +6,14 @@ use Modules\Rarv\Button\Button;
 use Modules\Rarv\Button\Repositories\CreateButton;
 use Modules\Rarv\Button\Repositories\DeleteButton;
 use Modules\Rarv\Button\Repositories\EditButton;
-use Modules\Rarv\Form\Form;
 
 class Table
 {
     protected $repository;
     protected $columns = [];
     protected $module;
-    protected $buttons = [];
-    protected $links = [];
+    protected $buttons    = [];
+    protected $links      = [];
     protected $filterForm = null;
 
     protected $perPage = 25;
@@ -110,7 +109,13 @@ class Table
 
     public function getRecords()
     {
-        $records = $this->getRepository()->paginate($this->perPage);
+        $records = $this->getRepository()->allWithBuilder();
+
+        if($this->getFilterForm()){
+            $records = $this->getFilterForm()->handle($this, $records);
+        }
+
+        $records = $records->paginate($this->perPage);
 
         return $records;
     }
@@ -136,7 +141,7 @@ class Table
 
     public function addButton(Button $button)
     {
-        if (! in_array($button, $this->buttons)) {
+        if (!in_array($button, $this->buttons)) {
             $this->buttons[] = $button;
         }
 
@@ -156,7 +161,7 @@ class Table
 
     public function addLink(Button $link)
     {
-        if (! in_array($link, $this->links)) {
+        if (!in_array($link, $this->links)) {
             $this->links[] = $link;
         }
 
@@ -165,13 +170,13 @@ class Table
 
     public function getLinks()
     {
-        return collect($this->links)->sortBy('weight');;
+        return collect($this->links)->sortBy('weight');
     }
 
     public function setFilterForm($form)
     {
-        if(is_string($form)){
-            $form = app($form, [$this->getModule()]);
+        if (is_string($form)) {
+            $form = app()->make($form, ['module' => $this->getModule()]);
         }
 
         $this->filterForm = $form;
@@ -181,6 +186,10 @@ class Table
 
     public function getFilterForm()
     {
+        if (is_string($this->filterForm)) {
+            $this->filterForm = app()->make($this->filterForm, ['module' => $this->getModule()]);
+        }
+
         return $this->filterForm;
     }
 }

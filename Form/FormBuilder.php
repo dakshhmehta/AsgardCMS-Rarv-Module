@@ -60,7 +60,7 @@ class FormBuilder
 
         $model = $this->form->getModel();
 
-        return view('rarv::admin.' . $this->mode, compact('module', 'entity', 'route', 'fields', 'model'));
+        return view($this->form->viewPath($this), compact('module', 'entity', 'route', 'fields', 'model'));
     }
 
     public function handle()
