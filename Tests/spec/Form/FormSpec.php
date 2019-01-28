@@ -57,6 +57,30 @@ class FormSpec extends LaravelObjectBehavior
         ])->getFields()->shouldHaveCount(2);
     }
 
+    public function it_does_not_return_fields_if_permission_is_not_granted()
+    {
+        $questionField = new Field('question', 'normalInput');
+        $answerField = new Field('answer', 'normalTextarea');
+        $questionField->permission(false);
+
+        $this->setFields([
+            $questionField,
+            $answerField
+        ])->getFields()->shouldHaveCount(1);
+    }
+
+    public function it_return_all_fields_even_if_permission_is_not_granted()
+    {
+        $questionField = new Field('question', 'normalInput');
+        $answerField = new Field('answer', 'normalTextarea');
+        $questionField->permission(false);
+
+        $this->setFields([
+            $questionField,
+            $answerField
+        ])->getAllFields()->shouldHaveCount(2);
+    }
+
     public function it_has_boot_method()
     {
         $this->boot()->shouldReturn(true);

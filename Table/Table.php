@@ -136,7 +136,11 @@ class Table
      */
     public function getButtons()
     {
-        return collect($this->buttons)->sortBy('weight');
+        return collect($this->buttons)
+            ->filter(function($button){
+                return $button->hasPermission();
+            })
+            ->sortBy('weight');
     }
 
     public function addButton(Button $button)
@@ -170,7 +174,11 @@ class Table
 
     public function getLinks()
     {
-        return collect($this->links)->sortBy('weight');
+        return collect($this->links)
+            ->filter(function($link){
+                return $link->hasPermission();
+            })
+            ->sortBy('weight');
     }
 
     public function setFilterForm($form)

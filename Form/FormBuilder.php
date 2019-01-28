@@ -27,6 +27,8 @@ class FormBuilder
     {
         $this->form = $form;
 
+        $this->form->boot();
+
         return $this;
     }
 

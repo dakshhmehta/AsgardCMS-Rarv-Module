@@ -53,6 +53,22 @@ class TableSpec extends LaravelObjectBehavior
         $this->addButton($createBtn)->getButtons()->shouldHaveCount(3);
     }
 
+    public function it_returns_buttons_with_permission_only($value='')
+    {
+        $createBtn = new Button('Create', '/create');
+        $createBtn->permission(false);
+
+        $this->setButtons([$createBtn])->getButtons()->shouldHaveCount(1);
+    }
+
+    public function it_returns_links_with_permission_only($value='')
+    {
+        $createBtn = new Button('Create', '/create');
+        $createBtn->permission(false);
+
+        $this->setLinks([$createBtn])->getLinks()->shouldHaveCount(2);
+    }
+
     public function it_can_set_get_actions()
     {
         $editBtn   = new Button('Edit', '##id##/edit');

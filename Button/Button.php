@@ -14,12 +14,14 @@ class Button implements \ArrayAccess
 
     public $weight = 0;
 
+    protected $permission = true;
+
     public function __construct($label, $url, $color = 'primary', $icon = null)
     {
         $this->label = $label;
-        $this->url = $url;
+        $this->url   = $url;
         $this->color = $color;
-        $this->icon = $icon;
+        $this->icon  = $icon;
     }
 
     /**
@@ -28,7 +30,7 @@ class Button implements \ArrayAccess
     public function getUrl($object = null)
     {
         $parser = new VariableParser();
-        $url = $parser->parse($this->url, $object);
+        $url    = $parser->parse($this->url, $object);
 
         return $url;
     }
@@ -80,7 +82,7 @@ class Button implements \ArrayAccess
      */
     public function setColor($color)
     {
-        if (! in_array($color, ['success', 'danger', 'warning', 'info', 'primary'])) {
+        if (!in_array($color, ['success', 'danger', 'warning', 'info', 'primary'])) {
             throw new \Exception('Invalid color specified', -1);
         }
 
@@ -123,7 +125,7 @@ class Button implements \ArrayAccess
 
     public function getAttribute($key, $default = null)
     {
-        if(! isset($this->attributes[$key])){
+        if (!isset($this->attributes[$key])) {
             return $default;
         }
 
@@ -132,7 +134,7 @@ class Button implements \ArrayAccess
 
     public function offsetExists($offset)
     {
-        # 
+        #
     }
 
     public function offsetSet($offset, $value)
@@ -155,9 +157,25 @@ class Button implements \ArrayAccess
         $data = [];
 
         foreach ($this->getAttributes() as $key => $value) {
-            $data[] = $key.'="'.$value.'"';
+            $data[] = $key . '="' . $value . '"';
         }
 
         return implode(' ', $data);
+    }
+
+    public function permission($permission)
+    {
+        $this->permission = value($permission);
+
+        if ($this->permission !== true and $this->permission !== false) {
+            throw new \Exception('Permission must return a boolean value', -1);
+        }
+
+        return $this;
+    }
+
+    public function hasPermission()
+    {
+        return $this->permission;
     }
 }

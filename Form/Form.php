@@ -55,7 +55,9 @@ class Form
      */
     public function getFields()
     {
-        return $this->fields;
+        return collect($this->fields)->filter(function($field){
+            return $field->hasPermission();
+        });
     }
 
     /**
@@ -198,5 +200,10 @@ class Form
     public function viewPath(FormBuilder $builder)
     {
         return 'rarv::admin.' . $builder->getMode();
+    }
+
+    public function getAllFields()
+    {
+        return $this->fields;
     }
 }

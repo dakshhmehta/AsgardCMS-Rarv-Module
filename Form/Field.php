@@ -16,6 +16,8 @@ class Field
 
     protected $column = 12;
 
+    protected $permission = true;
+
     public function __construct($name, $type, $parameters = [])
     {
         $this->name = $name;
@@ -96,7 +98,7 @@ class Field
             $errors,
         ];
 
-        if(count($this->getParameters()) > 0){
+        if (count($this->getParameters()) > 0) {
             $parameters = $this->getParameters();
         }
 
@@ -197,6 +199,22 @@ class Field
             return $this;
         }
 
-        throw new \Exception('Invalid column set for "'.$this->label.'" field', -1);
+        throw new \Exception('Invalid column set for "' . $this->label . '" field', -1);
+    }
+
+    public function permission($permission)
+    {
+        $this->permission = value($permission);
+
+        if ($this->permission !== true and $this->permission !== false) {
+            throw new \Exception('Permission must return a boolean value', -1);
+        }
+
+        return $this;
+    }
+
+    public function hasPermission()
+    {
+        return $this->permission;
     }
 }

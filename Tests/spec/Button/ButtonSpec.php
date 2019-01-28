@@ -56,4 +56,20 @@ class ButtonSpec extends ObjectBehavior
             'title' => 'Title'
         ])->getAttributesLine()->shouldBe('disabled="disabled" title="Title"');
     }
+
+    public function it_can_configure_the_permission()
+    {
+        $this->permission(function(){ return true; })->hasPermission()->shouldBeBoolean();
+    }
+
+    public function it_must_return_boolean_when_permission_set()
+    {
+        $this->shouldThrow()->duringPermission('dax');
+        $this->permission(false)->hasPermission()->shouldBeBoolean();
+    }
+
+    public function it_has_default_permission_to_true()
+    {
+        $this->hasPermission()->shouldBe(true);
+    }
 }
