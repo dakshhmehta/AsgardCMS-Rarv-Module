@@ -8,11 +8,11 @@ use Modules\Rarv\Form\Field;
 
 class SingleMediaField extends Field
 {
-	protected $type = 'singleMedia';
+    protected $type = 'singleMedia';
 
-	public function __construct($name)
+    public function __construct($name)
     {
-    	parent::__construct($name, $this->type);
+        parent::__construct($name, $this->type);
     }
 
     public function render()

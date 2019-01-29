@@ -63,7 +63,9 @@ class FieldSpec extends LaravelObjectBehavior
 
     public function it_can_configure_the_permission()
     {
-        $this->permission(function(){ return true; })->hasPermission()->shouldBeBoolean();
+        $this->permission(function () {
+            return true;
+        })->hasPermission()->shouldBeBoolean();
     }
 
     public function it_must_return_boolean_when_permission_set()

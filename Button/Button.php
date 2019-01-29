@@ -15,6 +15,7 @@ class Button implements \ArrayAccess
     public $weight = 0;
 
     protected $permission = true;
+    protected $policy = null;
 
     public function __construct($label, $url, $color = 'primary', $icon = null)
     {
@@ -177,5 +178,25 @@ class Button implements \ArrayAccess
     public function hasPermission()
     {
         return $this->permission;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPolicy()
+    {
+        return $this->policy;
+    }
+
+    /**
+     * @param mixed $policy
+     *
+     * @return self
+     */
+    public function setPolicy($policy)
+    {
+        $this->policy = $policy;
+
+        return $this;
     }
 }

@@ -9,10 +9,10 @@ use Prophecy\Argument;
 
 class SelectFieldSpec extends ObjectBehavior
 {
-	public function let()
-	{
-		$this->beConstructedWith('gender', ['m' => 'Male', 'f' => 'Female']);
-	}
+    public function let()
+    {
+        $this->beConstructedWith('gender', ['m' => 'Male', 'f' => 'Female']);
+    }
     function it_is_initializable()
     {
         $this->shouldHaveType(SelectField::class);

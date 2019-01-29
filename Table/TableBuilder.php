@@ -50,12 +50,20 @@ class TableBuilder
         $records = $this->table->getRecords();
         $filterForm = $this->table->getFilterForm();
 
-        if($filterForm){
+        if ($filterForm) {
             $filterForm = $this->formBuilder->setForm($filterForm);
         }
 
-        return view('rarv::table', compact('module', 'entity', 'records', 'headers', 'columns', 'buttons', 'links',
-            'filterForm'));
+        return view('rarv::table', compact(
+            'module',
+            'entity',
+            'records',
+            'headers',
+            'columns',
+            'buttons',
+            'links',
+            'filterForm'
+        ));
     }
 
     public function getHeaders()

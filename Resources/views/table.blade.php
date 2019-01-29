@@ -64,12 +64,16 @@
                                 <td>
                                     <div class="btn-group">
                                         @foreach($links as &$link)
-                                        <a href="{{ $link->getURL($record) }}" class="btn btn-{{ $link->getColor() }} btn-flat" {!! $link->getAttributesLine() !!}>
-                                            @if($link->getIcon() != '')
-                                            <i class="{{ $link->getIcon() }}"></i>
-                                            @endif
-                                            &nbsp;{{ $link->getLabel() }}
-                                        </a>
+                                        @can($link->getPolicy(), $record)
+                                            <a href="{{ $link->getURL($record) }}" 
+                                                class="btn btn-{{ $link->getColor() }} btn-flat" 
+                                                {!! $link->getAttributesLine() !!}>
+                                                @if($link->getIcon() != '')
+                                                <i class="{{ $link->getIcon() }}"></i>
+                                                @endif
+                                                &nbsp;{{ $link->getLabel() }}
+                                            </a>
+                                        @endcan
                                         @endforeach
                                     </div>
                                 </td>

@@ -111,7 +111,7 @@ class Table
     {
         $records = $this->getRepository()->allWithBuilder();
 
-        if($this->getFilterForm()){
+        if ($this->getFilterForm()) {
             $records = $this->getFilterForm()->handle($this, $records);
         }
 
@@ -137,7 +137,7 @@ class Table
     public function getButtons()
     {
         return collect($this->buttons)
-            ->filter(function($button){
+            ->filter(function ($button) {
                 return $button->hasPermission();
             })
             ->sortBy('weight');
@@ -175,7 +175,7 @@ class Table
     public function getLinks()
     {
         return collect($this->links)
-            ->filter(function($link){
+            ->filter(function ($link) {
                 return $link->hasPermission();
             })
             ->sortBy('weight');

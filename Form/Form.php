@@ -55,7 +55,7 @@ class Form
      */
     public function getFields()
     {
-        return collect($this->fields)->filter(function($field){
+        return collect($this->fields)->filter(function ($field) {
             return $field->hasPermission();
         });
     }

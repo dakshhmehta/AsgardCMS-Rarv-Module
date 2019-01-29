@@ -7,26 +7,26 @@ use Modules\Rarv\Form\Field;
 
 class FileField extends Field
 {
-	protected $type = 'normalFile';
+    protected $type = 'normalFile';
 
-	public function __construct($name)
+    public function __construct($name)
     {
-    	parent::__construct($name, $this->type);
+        parent::__construct($name, $this->type);
     }
 
     public function getParameters()
     {
-    	$options = $this->parameters;
+        $options = $this->parameters;
 
-    	return [
-    		$this->getName(), $this->getLabel(), session()->get('errors', new ViewErrorBag), 
+        return [
+            $this->getName(), $this->getLabel(), session()->get('errors', new ViewErrorBag),
             $this->getValue(), $options
-    	];
+        ];
     }
 
     public function getValue()
     {
-    	if(! $this->value){
+        if (! $this->value) {
             $value = new \stdClass;
             $value->{$this->getName()} = request()->file($this->getName());
 

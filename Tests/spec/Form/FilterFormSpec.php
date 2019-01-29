@@ -9,10 +9,10 @@ use Prophecy\Argument;
 
 class FilterFormSpec extends ObjectBehavior
 {
-	public function let()
-	{
-		$this->beConstructedWith('filter-form');
-	}
+    public function let()
+    {
+        $this->beConstructedWith('filter-form');
+    }
 
     function it_is_initializable()
     {
@@ -21,6 +21,6 @@ class FilterFormSpec extends ObjectBehavior
 
     public function it_render_the_filter_form_view()
     {
-    	return $this->viewPath(new FormBuilder)->shouldBe('rarv::admin.filter-form');
+        return $this->viewPath(new FormBuilder)->shouldBe('rarv::admin.filter-form');
     }
 }

@@ -4,6 +4,7 @@ namespace spec\Modules\Rarv\Table;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Modules\Faq\Http\Form\FaqFilterForm;
+use Modules\Faq\Policies\FaqHeadingPolicy;
 use Modules\Page\Repositories\PageRepository;
 use Modules\Rarv\Button\Button;
 use Modules\Rarv\Form\FilterForm;
@@ -53,7 +54,7 @@ class TableSpec extends LaravelObjectBehavior
         $this->addButton($createBtn)->getButtons()->shouldHaveCount(3);
     }
 
-    public function it_returns_buttons_with_permission_only($value='')
+    public function it_returns_buttons_with_permission_only($value = '')
     {
         $createBtn = new Button('Create', '/create');
         $createBtn->permission(false);
@@ -61,7 +62,7 @@ class TableSpec extends LaravelObjectBehavior
         $this->setButtons([$createBtn])->getButtons()->shouldHaveCount(1);
     }
 
-    public function it_returns_links_with_permission_only($value='')
+    public function it_returns_links_with_permission_only($value = '')
     {
         $createBtn = new Button('Create', '/create');
         $createBtn->permission(false);

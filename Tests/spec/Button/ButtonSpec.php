@@ -52,14 +52,16 @@ class ButtonSpec extends ObjectBehavior
     public function it_can_get_attributes_as_string()
     {
         $this->setAttributes([
-            'disabled' => 'disabled', 
+            'disabled' => 'disabled',
             'title' => 'Title'
         ])->getAttributesLine()->shouldBe('disabled="disabled" title="Title"');
     }
 
     public function it_can_configure_the_permission()
     {
-        $this->permission(function(){ return true; })->hasPermission()->shouldBeBoolean();
+        $this->permission(function () {
+            return true;
+        })->hasPermission()->shouldBeBoolean();
     }
 
     public function it_must_return_boolean_when_permission_set()
@@ -71,5 +73,10 @@ class ButtonSpec extends ObjectBehavior
     public function it_has_default_permission_to_true()
     {
         $this->hasPermission()->shouldBe(true);
+    }
+
+    public function it_can_set_get_policy()
+    {
+        $this->setPolicy('add-faq')->getPolicy()->shouldBe('add-faq');
     }
 }
