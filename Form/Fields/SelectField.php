@@ -32,4 +32,31 @@ class SelectField extends Field
 
         return $value;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getChoice()
+    {
+        return $this->choice;
+    }
+
+    /**
+     * @param mixed $choice
+     *
+     * @return self
+     */
+    public function setChoice($choice)
+    {
+        $this->choice = $choice;
+
+        return $this;
+    }
+
+    public function setDefault($default)
+    {
+        $this->choice = array_merge(['' => $default], $this->choice);
+
+        return $this;
+    }
 }

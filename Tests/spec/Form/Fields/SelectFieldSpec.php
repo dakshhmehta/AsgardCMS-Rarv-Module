@@ -18,4 +18,16 @@ class SelectFieldSpec extends ObjectBehavior
         $this->shouldHaveType(SelectField::class);
         $this->shouldHaveType(Field::class);
     }
+
+    public function it_has_choices()
+    {
+    	$this->setChoice(['A', 'B'])->getChoice()->shouldHaveCount(2);
+    }
+
+    public function it_can_set_default_choice()
+    {
+    	$this->setDefault('-- Select --')->getChoice()->shouldHaveCount(3);
+    	$this->setChoice([])->setDefault('-- Select --')->getChoice()->shouldHaveCount(1);
+    }
+
 }
