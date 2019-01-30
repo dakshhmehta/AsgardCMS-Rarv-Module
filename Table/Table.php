@@ -109,7 +109,7 @@ class Table
 
     public function getRecords()
     {
-        $records = $this->getRepository()->allWithBuilder();
+        $records = $this->getBuilder();
 
         if ($this->getFilterForm()) {
             $records = $this->getFilterForm()->handle($this, $records);
@@ -199,5 +199,10 @@ class Table
         }
 
         return $this->filterForm;
+    }
+
+    public function getBuilder()
+    {
+        return $this->getRepository()->allWithBuilder();
     }
 }

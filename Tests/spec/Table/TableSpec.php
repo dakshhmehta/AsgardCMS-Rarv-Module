@@ -3,8 +3,10 @@
 namespace spec\Modules\Rarv\Table;
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Modules\Faq\Http\Form\FaqFilterForm;
 use Modules\Faq\Policies\FaqHeadingPolicy;
+use Modules\Faq\Repositories\FaqRepository;
 use Modules\Page\Repositories\PageRepository;
 use Modules\Rarv\Button\Button;
 use Modules\Rarv\Form\FilterForm;
@@ -86,5 +88,11 @@ class TableSpec extends LaravelObjectBehavior
             ->shouldBeAnInstanceOf(FilterForm::class);
 
         $this->setFilterForm(FaqFilterForm::class)->getFilterForm()->shouldBeAnInstanceOf(FilterForm::class);
+    }
+
+    public function it_can_get_builder()
+    {
+        $this->setRepository(FaqRepository::class);
+        $this->getBuilder()->shouldBeAnInstanceOf(Builder::class);
     }
 }
