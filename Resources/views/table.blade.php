@@ -74,6 +74,17 @@
                                                 &nbsp;{{ $link->getLabel() }}
                                             </a>
                                         @endcan
+                                        @cannot($link->getPolicy(), $record)
+                                            @php $link->getURL($record) @endphp
+                                            <a disabled="disabled" 
+                                                class="btn btn-{{ $link->getColor() }} btn-flat" 
+                                                {!! $link->getAttributesLine() !!}>
+                                                @if($link->getIcon() != '')
+                                                <i class="{{ $link->getIcon() }}"></i>
+                                                @endif
+                                                &nbsp;{{ $link->getLabel() }}
+                                            </a>
+                                        @endcannot
                                         @endforeach
                                     </div>
                                 </td>
