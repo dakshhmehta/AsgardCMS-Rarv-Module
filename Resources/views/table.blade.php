@@ -40,7 +40,7 @@
                 <div class="box-body">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            {!! $records->links() !!}
+                            {!! $records->appends(request()->all())->links() !!}
                         </div>
                     </div>
 
@@ -106,7 +106,7 @@
 
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            {!! $records->links() !!}
+                            {!! $records->appends(request()->all())->links() !!}
                         </div>
                     </div>
                 </div>

@@ -32,7 +32,7 @@ class DeleteButton extends Button
         return [
             'data-toggle' => 'modal',
             'data-target' => '#modal-delete-confirmation',
-            'data-target-action' => route('admin.'.$this->table->getModule().'.destroy', [$this->object->id])
+            'data-action-target' => route('admin.'.$this->table->getModule().'.destroy', [$this->object->id])
         ];
     }
 }
