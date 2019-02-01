@@ -51,7 +51,9 @@
                                 @foreach($headers as &$header)
                                 <th>{{ trans($header) }}</th>
                                 @endforeach
+                                @if(count($links) > 0)
                                 <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
+                                @endif
                             </tr>
                             </thead>
                             <tbody>
@@ -61,6 +63,7 @@
                                 @foreach($columns as &$column)
                                 <td>{!! $record->{$column} !!}</td>
                                 @endforeach
+                                @if(count($links) > 0)
                                 <td>
                                     <div class="btn-group">
                                         @foreach($links as &$link)
@@ -88,6 +91,7 @@
                                         @endforeach
                                     </div>
                                 </td>
+                                @endif
                             </tr>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -97,7 +101,9 @@
                                 @foreach($headers as &$header)
                                 <th>{{ trans($header) }}</th>
                                 @endforeach
+                                @if(count($links) > 0)
                                 <th>{{ trans('core::core.table.actions') }}</th>
+                                @endif
                             </tr>
                             </tfoot>
                         </table>
