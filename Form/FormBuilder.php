@@ -81,21 +81,22 @@ class FormBuilder
         }
 
         if ($this->mode == 'create') {
-            $this->form->getRepository()->create($data);
+            $model = $this->form->getRepository()->create($data);
         } else {
             if (! $this->form->getModel()) {
                 throw new \Exception('No model set for the editing', -1);
             }
             
-            $this->form->getRepository()->update($this->form->getModel(), $data);
+            $model = $this->form->getRepository()->update($this->form->getModel(), $data);
         }
 
-        $route = 'admin.' . $this->form->getModule() . '.' . $this->form->getEntity().'.index';
-        return redirect()->route($route);
+        $this->form->setModel($model);
+
+        return redirect()->to($this->form->getRedirectUrl($this->mode));
     }
 
     public function prepareRoute()
     {
-        return $this->form->getRedirectUrl($this->mode);
+        return $this->form->getSubmitUrl($this->mode);
     }
 }

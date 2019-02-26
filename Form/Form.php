@@ -207,7 +207,7 @@ class Form
         return $this->fields;
     }
 
-    public function getRedirectUrl($mode)
+    public function getSubmitUrl($mode)
     {
         if($mode != 'create' and $mode != 'edit'){
             throw new \Exception('Invalid mode set.', -1);            
@@ -218,5 +218,10 @@ class Form
         } else {
             return route('admin.' . $this->getModule() .'.'. $this->getEntity() . '.update', $this->getModel()->id); // @todo test case missing
         }
+    }
+
+    public function getRedirectUrl($mode)
+    {
+        return route('admin.' . $this->getModule() . '.' . $this->getEntity().'.index');
     }
 }
