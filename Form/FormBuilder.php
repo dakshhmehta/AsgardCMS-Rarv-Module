@@ -96,10 +96,6 @@ class FormBuilder
 
     public function prepareRoute()
     {
-        if ($this->mode == 'create') {
-            return route('admin.' . $this->form->getModule() .'.'. $this->form->getEntity() . '.store');
-        } else {
-            return route('admin.' . $this->form->getModule() .'.'. $this->form->getEntity() . '.update', $this->form->getModel()->id); // @todo test case missing
-        }
+        return $this->form->getRedirectUrl($this->mode);
     }
 }

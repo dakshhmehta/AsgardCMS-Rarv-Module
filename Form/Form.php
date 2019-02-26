@@ -206,4 +206,17 @@ class Form
     {
         return $this->fields;
     }
+
+    public function getRedirectUrl($mode)
+    {
+        if($mode != 'create' and $mode != 'edit'){
+            throw new \Exception('Invalid mode set.', -1);            
+        }
+
+        if ($mode == 'create') {
+            return route('admin.' . $this->getModule() .'.'. $this->getEntity() . '.store');
+        } else {
+            return route('admin.' . $this->getModule() .'.'. $this->getEntity() . '.update', $this->getModel()->id); // @todo test case missing
+        }
+    }
 }

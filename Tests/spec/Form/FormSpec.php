@@ -131,4 +131,9 @@ class FormSpec extends LaravelObjectBehavior
     {
         $this->viewPath(new FormBuilder())->shouldBeString();
     }
+
+    public function it_can_have_redirect_url()
+    {
+        $this->getRedirectUrl('create')->shouldBeString();
+    }
 }
