@@ -16,7 +16,7 @@ class Table
     protected $links      = [];
     protected $filterForm = null;
 
-    protected $perPage = 25;
+    public $perPage = 25;
 
     public function __construct($module)
     {
