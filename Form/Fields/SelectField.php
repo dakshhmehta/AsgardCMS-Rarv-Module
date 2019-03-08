@@ -10,10 +10,10 @@ class SelectField extends Field
     protected $type = 'normalSelect';
     protected $choice = [];
 
-    public function __construct($name, $choice)
+    public function __construct($name, array $choice)
     {
         parent::__construct($name, $this->type);
-        $this->choice = $choice;
+        $this->choice = collect($choice);
     }
 
     public function getParameters()
@@ -48,14 +48,14 @@ class SelectField extends Field
      */
     public function setChoice($choice)
     {
-        $this->choice = $choice;
+        $this->choice = collect($choice);
 
         return $this;
     }
 
     public function setDefault($default)
     {
-        $this->choice = array_merge(['' => $default], $this->choice);
+        $this->choice->prepend($default, '');
 
         return $this;
     }

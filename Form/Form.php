@@ -209,8 +209,8 @@ class Form
 
     public function getSubmitUrl($mode)
     {
-        if($mode != 'create' and $mode != 'edit'){
-            throw new \Exception('Invalid mode set.', -1);            
+        if ($mode != 'create' and $mode != 'edit') {
+            throw new \Exception('Invalid mode set.', -1);
         }
 
         if ($mode == 'create') {
