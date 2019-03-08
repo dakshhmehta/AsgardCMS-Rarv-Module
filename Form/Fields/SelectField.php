@@ -19,9 +19,10 @@ class SelectField extends Field
     public function getParameters()
     {
         $options = $this->parameters;
+        $data = $this->choice->toArray();
 
         return [
-            $this->getName(), $this->getLabel(), session()->get('errors', new ViewErrorBag), $this->choice, $this->getValue(), $options
+            $this->getName(), $this->getLabel(), session()->get('errors', new ViewErrorBag), $data, $this->getValue(), $options
         ];
     }
 
