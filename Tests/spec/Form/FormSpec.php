@@ -132,7 +132,7 @@ class FormSpec extends LaravelObjectBehavior
         $this->viewPath(new FormBuilder())->shouldBeString();
     }
 
-    public function it_can_have_submit_url()
+    /*public function it_can_have_submit_url()
     {
         $this->getSubmitUrl('create')->shouldBeString();
     }
@@ -140,5 +140,5 @@ class FormSpec extends LaravelObjectBehavior
     public function it_can_have_redirect_url()
     {
         return $this->getRedirectUrl('create')->shouldBeString();
-    }
+    }*/
 }

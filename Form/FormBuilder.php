@@ -90,7 +90,9 @@ class FormBuilder
             $model = $this->form->getRepository()->update($this->form->getModel(), $data);
         }
 
-        $this->form->setModel($model);
+        if($model){
+            $this->form->setModel($model);
+        }
 
         return redirect()->to($this->form->getRedirectUrl($this->mode));
     }
