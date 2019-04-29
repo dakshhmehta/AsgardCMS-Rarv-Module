@@ -90,7 +90,7 @@ class FormBuilder
             $model = $this->form->getRepository()->update($this->form->getModel(), $data);
         }
 
-        if($model){
+        if ($model) {
             $this->form->setModel($model);
         }
 
