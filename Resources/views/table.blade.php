@@ -60,8 +60,14 @@
                             <?php if (isset($records)) : ?>
                                 <?php foreach ($records as $record) : ?>
                             <tr>
-                                @foreach($columns as &$column)
-                                <td>{!! $record->{$column} !!}</td>
+                                @foreach($columns as $column => $value)
+                                <td>
+                                    @if(is_string($value))
+                                    {!! $record->{$value} !!}
+                                    @else
+                                    {!! value($value['value']($record)) !!}
+                                    @endif
+                                </td>
                                 @endforeach
                                 @if(count($links) > 0)
                                 <td>
