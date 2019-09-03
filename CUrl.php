@@ -142,15 +142,15 @@ class CUrl
             ->withPackageOption('returnAsArray', $asArray);
     }
 
-//    /**
-//     * Send the request over a secure connection
-//     *
-//     * @return Builder
-//     */
-//    public function secure()
-//    {
-//        return $this;
-//    }
+    //    /**
+    //     * Send the request over a secure connection
+    //     *
+    //     * @return Builder
+    //     */
+    //    public function secure()
+    //    {
+    //        return $this;
+    //    }
 
     /**
      * Set any specific cURL option
