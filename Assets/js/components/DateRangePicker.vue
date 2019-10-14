@@ -13,27 +13,37 @@
       :picker-options="pickerOptions2">
     </el-date-picker>
     <el-date-picker
-      v-if="type == 'date'"
+      v-if="type == 'date' && is_future"
       :name="name"
       format="dd-MM-yyyy"
       :placeholder="placeholder"
       v-model="val"
     >
     </el-date-picker>
+    <el-date-picker
+      v-else="type == 'date'"
+      :name="name"
+      format="dd-MM-yyyy"
+      :placeholder="placeholder"
+      :picker-options="pickerOptions1"
+      v-model="val"
+    >
+    </el-date-picker>    
   </div>
 </template>
 
 <script>
   export default {
-    props: ['value','name', 'type', 'placeholder'],
+    props: ['value','name', 'type', 'placeholder', 'is_future'],
     mounted(){
-      console.log(this.type)
       this.val = this.value
     },
     data() {
-      return {
-        val: null,
+      return {        
         pickerOptions2: {
+            disabledDate(time) {
+                return time.getTime() > Date.now();
+            },
           shortcuts: [{
             text: 'Last week',
             onClick(picker) {
@@ -60,6 +70,12 @@
             }
           }]
         },
+        pickerOptions1: {
+            disabledDate(time) {
+                return time.getTime() > Date.now();
+            },
+        },        
+        val: null,
       };
     }
   };
