@@ -6,9 +6,7 @@
     {!! Form::label($name, $text, ['class' => 'control-label']) !!}
     <div class="input-group">
         <div class="input-group-addon"><i class="fa fa-{{ $icon }}"></i></div>
-        <ri-datepicker type="date" name="{{ $name }}" placeholder="{{ $text }}" value="{{ $value }}">
-            
-        </ri-datepicker>
+        <ri-datepicker type="date" name="{{ $name }}" placeholder="{{ $text }}" value="{{ $value }}" is_future="{{ isset($attributes['future']) ? true : false }}">
     </div>
     {!! $errors->first($name, '<p class="help-block">:message</p>') !!}
 </div>
