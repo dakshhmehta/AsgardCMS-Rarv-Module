@@ -2,12 +2,11 @@
 
 namespace Modules\Rarv\Form\Fields;
 
-use Illuminate\Support\ViewErrorBag;
 use Modules\Rarv\Form\Field;
 
 class SelectField extends Field
 {
-    protected $type = 'normalSelect';
+    protected $type   = 'selectGroup';
     protected $choice = [];
 
     public function __construct($name, array $choice)
@@ -19,20 +18,25 @@ class SelectField extends Field
     public function getParameters()
     {
         $options = $this->parameters;
-        $data = $this->choice->toArray();
+        $data    = $this->choice->toArray();
 
+        if (in_array('required', $this->rules)) {
+            $options['required'] = 'required';
+        }
+
+        // @todo need to pass error log session()->get('errors', new ViewErrorBag)
         return [
-            $this->getName(), $this->getLabel(), session()->get('errors', new ViewErrorBag), $data, $this->getValue(), $options
+            $this->getName(), $this->getLabel(), (isset($options['icon']) ? $options['icon'] : ''), $data, $this->getValue(), $options,
         ];
     }
 
-    public function getValue()
+    /*public function getValue()
     {
-        $value = new \stdClass;
+        $value                     = new \stdClass;
         $value->{$this->getName()} = parent::getValue();
 
         return $value;
-    }
+    }*/
 
     /**
      * @return mixed

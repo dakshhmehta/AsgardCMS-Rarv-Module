@@ -98,11 +98,20 @@ class Field
             $errors,
         ];
 
+        if (in_array('required', $this->rules) && in_array($this->type, ['textGroup', 'textareaGroup'])) {
+            $parameters[]['required'] = 'required';
+        }
+
         if (count($this->getParameters()) > 0) {
             $parameters = $this->getParameters();
         }
 
-        $html = $builder->macroCall($this->type, $parameters);
+        try {
+            $html = $builder->macroCall($this->type, $parameters);
+        } catch (\Exception $e) {
+            // Its macro
+            $html = $builder->componentCall($this->type, $parameters);
+        }
 
         return $html;
     }
