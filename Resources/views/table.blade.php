@@ -65,7 +65,7 @@
                                     @if(is_string($value))
                                     {!! $record->{$value} !!}
                                     @else
-                                    {!! value($value['value']($record)) !!}
+                                    {!! transform($record, $value) !!}
                                     @endif
                                 </td>
                                 @endforeach

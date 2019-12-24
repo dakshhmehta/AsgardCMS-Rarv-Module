@@ -72,8 +72,14 @@ class TableBuilder
 
         $module = $this->getModule();
 
-        foreach ($this->table->getColumns() as &$column) {
-            $columns[] = $module . '::' . $this->getEntity() . '.table.columns.' . $column;
+        foreach ($this->table->getColumns() as $column => $value) {
+            $col = &$column;
+
+            if (is_numeric($col)) {
+                $col = $value;
+            }
+
+            $columns[] = $module . '::' . $this->getEntity() . '.table.columns.' . $col;
         }
 
         return $columns;
