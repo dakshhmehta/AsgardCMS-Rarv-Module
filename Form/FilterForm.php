@@ -20,7 +20,7 @@ class FilterForm extends BaseForm
 
         foreach ($this->getFields() as &$field) {
             if ($field instanceof SelectField) {
-                $value = $field->getValue()->{$field->getName()};
+                $value = $field->getValue();
                 if ($value) {
                     $query->whereIn($field->getName(), ((is_array($value)) ? $value : [$value]));
                 }
