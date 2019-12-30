@@ -58,14 +58,16 @@
                             </thead>
                             <tbody>
                             <?php if (isset($records)) : ?>
-                                <?php foreach ($records as $record) : ?>
+                                <?php foreach ($records as $i => $record) : ?>
                             <tr>
                                 @foreach($columns as $column => $value)
                                 <td>
-                                    @if(is_string($value))
-                                    {!! $record->{$value} !!}
-                                    @else
-                                    {!! transform($record, $value) !!}
+                                    @if($value == '__index')
+                                    {{ $i + 1}}
+                                    @elseif(is_string($value))
+                                        {!! $record->{$value} !!}
+                                        @else
+                                        {!! transform($record, $value) !!}
                                     @endif
                                 </td>
                                 @endforeach
@@ -83,7 +85,7 @@
                                                 &nbsp;{{ $link->getLabel() }}
                                             </a>
                                         @endcan
-                                        @cannot($link->getPolicy(), $record)
+                                        {{-- @cannot($link->getPolicy(), $record)
                                             @php $link->getURL($record) @endphp
                                             <a disabled="disabled" 
                                                 class="btn btn-{{ $link->getColor() }} btn-flat" 
@@ -93,7 +95,7 @@
                                                 @endif
                                                 &nbsp;{{ $link->getLabel() }}
                                             </a>
-                                        @endcannot
+                                        @endcannot --}}
                                         @endforeach
                                     </div>
                                 </td>
