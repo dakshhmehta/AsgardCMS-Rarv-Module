@@ -21,13 +21,13 @@ class FilterForm extends BaseForm
         foreach ($this->getFields() as &$field) {
             if ($field instanceof SelectField) {
                 $value = $field->getValue();
-                if ($value) {
+                if ($value !== null) {
                     $query->whereIn($field->getName(), ((is_array($value)) ? $value : [$value]));
                 }
                 continue;
             }
 
-            if ($field->getValue()) {
+            if ($field->getValue() !== null) {
                 $query->where($field->getName(), 'LIKE', '%' . $field->getValue() . '%');
             }
         }

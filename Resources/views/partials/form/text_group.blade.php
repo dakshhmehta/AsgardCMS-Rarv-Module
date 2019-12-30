@@ -5,8 +5,11 @@
     @if(isset($attributes['required']))
     <span class="text-danger">*</span>
     @endif
-    <div class="input-group">
+
+    <div class="{{ $icon == '' ? 'form-group' : 'input-group' }}">
+        @if($icon != '')
         <div class="input-group-addon"><i class="fa fa-{{ $icon }}"></i></div>
+        @endif
         {!! Form::text($name, $value, array_merge(['class' => 'form-control', 'placeholder' => $text], $attributes)) !!}
     </div>
     {!! $errors->first($name, '<p class="help-block">:message</p>') !!}
