@@ -71,6 +71,7 @@ class FormBuilder
             throw new \Exception('Form is not defined', -1);
         }
 
+
         if (!$this->form->validate()) {
             return redirect()->back()->withErrors($this->form->getErrors())->withInput();
         }
@@ -90,8 +91,18 @@ class FormBuilder
             $model = $this->form->getRepository()->update($this->form->getModel(), $data);
         }
 
+
         if ($model) {
             $this->form->setModel($model);
+        }
+
+
+        if (request()->ajax()) {
+            return response()->json([
+                'data' => $model,
+                'success' => true,
+                'message' => 'Model updated successfully',
+            ]);
         }
 
         return redirect()->to($this->form->getRedirectUrl($this->mode));

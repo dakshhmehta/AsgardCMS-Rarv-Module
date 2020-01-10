@@ -13,7 +13,7 @@
       :picker-options="pickerOptions2">
     </el-date-picker>
     <el-date-picker
-      v-if="type == 'date' && is_future"
+      v-else-if="type == 'date' && is_future"
       :name="name"
       format="dd-MM-yyyy"
       :placeholder="placeholder"
@@ -21,7 +21,7 @@
     >
     </el-date-picker>
     <el-date-picker
-      v-else="type == 'date'"
+      v-else-if="type == 'date'"
       :name="name"
       format="dd-MM-yyyy"
       :placeholder="placeholder"

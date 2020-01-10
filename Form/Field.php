@@ -2,6 +2,7 @@
 
 namespace Modules\Rarv\Form;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\ViewErrorBag;
 
 class Field
@@ -227,5 +228,12 @@ class Field
     public function hasPermission()
     {
         return $this->permission;
+    }
+
+    public function filter(Builder $query)
+    {
+        if ($this->getValue() !== null) {
+            $query->where($this->getName(), 'LIKE', '%' . $this->getValue() . '%');
+        }
     }
 }

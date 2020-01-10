@@ -16,6 +16,8 @@ class Table
     protected $links      = [];
     protected $filterForm = null;
 
+    protected $with = []; // Relationships to eagerload.
+
     public $perPage = 25;
 
     public function __construct($module)
@@ -203,6 +205,6 @@ class Table
 
     public function getBuilder()
     {
-        return $this->getRepository()->allWithBuilder();
+        return $this->getRepository()->allWithBuilder()->with($this->with);
     }
 }

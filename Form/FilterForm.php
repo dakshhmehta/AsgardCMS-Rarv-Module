@@ -27,9 +27,7 @@ class FilterForm extends BaseForm
                 continue;
             }
 
-            if ($field->getValue() !== null) {
-                $query->where($field->getName(), 'LIKE', '%' . $field->getValue() . '%');
-            }
+            $field->filter($query);
         }
 
         return $query;
