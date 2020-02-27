@@ -87,7 +87,7 @@ class FormBuilder
             if (! $this->form->getModel()) {
                 throw new \Exception('No model set for the editing', -1);
             }
-            
+
             $model = $this->form->getRepository()->update($this->form->getModel(), $data);
         }
 

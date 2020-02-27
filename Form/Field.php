@@ -112,6 +112,7 @@ class Field
         try {
             $html = $builder->macroCall($this->type, $parameters);
         } catch (\Exception $e) {
+            \Log::error($e);
             // Its macro
             $html = $builder->componentCall($this->type, $parameters);
         }

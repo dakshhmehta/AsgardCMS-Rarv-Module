@@ -49,7 +49,11 @@
                             <thead>
                             <tr>
                                 @foreach($headers as &$header)
-                                <th>{{ trans($header) }}</th>
+                                    @if(strpos($header, '__index') !== false)
+                                        <th>#</th>
+                                    @else
+                                        <th>{{ trans($header) }}</th>
+                                    @endif
                                 @endforeach
                                 @if(count($links) > 0)
                                 <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
@@ -107,7 +111,11 @@
                             <tfoot>
                             <tr>
                                 @foreach($headers as &$header)
-                                <th>{{ trans($header) }}</th>
+                                    @if(strpos($header, '__index') !== false)
+                                        <th>#</th>
+                                    @else
+                                        <th>{{ trans($header) }}</th>
+                                    @endif
                                 @endforeach
                                 @if(count($links) > 0)
                                 <th>{{ trans('core::core.table.actions') }}</th>
