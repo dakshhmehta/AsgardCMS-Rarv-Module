@@ -42,7 +42,7 @@ class RarvServiceProvider extends ServiceProvider
 
         $this->app['view']->prependNamespace(
             'rarv',
-            base_path('resources/views/asgard/rarv')
+            $theme->find(config('asgard.core.core.admin-theme'))->getPath() . '/views/modules/rarv'
         );
 
         $this->publishConfig('rarv', 'config');
