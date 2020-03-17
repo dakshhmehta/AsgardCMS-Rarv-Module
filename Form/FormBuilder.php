@@ -46,7 +46,6 @@ class FormBuilder
         if ($this->mode == 'edit' and !$this->form->getModel()) {
             throw new \Exception('Model not set for editing', -1);
         }
-
         $this->form->populateValues();
 
         $module = $this->form->getModule();

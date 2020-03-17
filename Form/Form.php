@@ -190,7 +190,9 @@ class Form
         foreach ($this->fields as &$field) {
             try {
                 $value = $this->model->{$field->getName()};
-                $field->setValue($value);
+                if ($value) {
+                    $field->setValue($value);
+                }
             } catch (\Exception $e) {
                 // We just pass if attribute not found.
             }

@@ -19,6 +19,8 @@ class Field
 
     protected $permission = true;
 
+    protected $view = null;
+
     public function __construct($name, $type, $parameters = [])
     {
         $this->name = $name;
@@ -87,8 +89,24 @@ class Field
         return $this;
     }
 
+    public function setView($view)
+    {
+        $this->view = $view;
+
+        return $this;
+    }
+
+    public function getView()
+    {
+        return $this->view;
+    }
+
     public function render()
     {
+        if ($this->getView()) {
+            return view($this->getView(), ['field' => $this]);
+        }
+
         $builder = app('form');
 
         $errors = session()->get('errors', new ViewErrorBag);
