@@ -38,12 +38,6 @@ class TableBuilderSpec extends LaravelObjectBehavior
         $this->setTable($this->table())->view()->shouldBeAnInstanceOf(View::class);
     }
 
-    public function it_can_return_valid_header()
-    {
-        $this->setTable($this->table())->getHeaders()
-            ->shouldBe(['faq::faqs.table.columns.question']);
-    }
-
     public function it_can_get_correct_module()
     {
         $this->setTable($this->table())->getModule()->shouldBe('faq');

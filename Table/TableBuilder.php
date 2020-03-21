@@ -2,6 +2,7 @@
 
 namespace Modules\Rarv\Table;
 
+use Maatwebsite\Excel\Facades\Excel;
 use Modules\Rarv\Form\FormBuilder;
 
 class TableBuilder
@@ -40,9 +41,13 @@ class TableBuilder
             throw new \Exception('Table not set', -1);
         }
 
-        $headers = $this->getHeaders();
+        $headers = $this->table->getHeaders();
         $module  = $this->getModule();
         $entity  = $this->getEntity();
+
+        if ($this->table->isExportable() && request()->get('export', 'no') == 'yes') {
+            return Excel::download($this->table->toExportable(), $this->getEntity().time().'.xlsx');
+        }
 
         $buttons = $this->table->getButtons();
         $links = $this->table->getLinks();
@@ -66,34 +71,9 @@ class TableBuilder
         ));
     }
 
-    public function getHeaders()
-    {
-        $columns = [];
-
-        $module = $this->getModule();
-
-        foreach ($this->table->getColumns() as $column => $value) {
-            $col = &$column;
-
-            if (is_numeric($col)) {
-                $col = $value;
-            }
-
-            $columns[] = $module . '::' . $this->getEntity() . '.table.columns.' . $col;
-        }
-
-        return $columns;
-    }
-
     public function getEntity()
     {
-        $module = explode('.', $this->table->getModule());
-
-        if (isset($module[1])) {
-            return $module[1];
-        }
-
-        return str_plural($module[0]);
+        return $this->table->getEntity();
     }
 
     public function getModule()

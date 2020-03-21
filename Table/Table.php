@@ -6,6 +6,7 @@ use Modules\Rarv\Button\Button;
 use Modules\Rarv\Button\Repositories\CreateButton;
 use Modules\Rarv\Button\Repositories\DeleteButton;
 use Modules\Rarv\Button\Repositories\EditButton;
+use Modules\Rarv\Button\Repositories\ExportButton;
 
 class Table
 {
@@ -18,6 +19,8 @@ class Table
 
     protected $with = []; // Relationships to eagerload.
 
+    protected $exportable = false;
+
     public $perPage = 25;
 
     public function __construct($module)
@@ -28,9 +31,18 @@ class Table
         $this->prepareLinks();
     }
 
+    public function isExportable():bool
+    {
+        return $this->exportable;
+    }
+
     protected function prepareButtons()
     {
         $this->addButton(new CreateButton($this));
+
+        if ($this->isExportable()) {
+            $this->addButton(new ExportButton($this));
+        }
     }
 
     protected function prepareLinks()
@@ -109,7 +121,7 @@ class Table
         return $this;
     }
 
-    public function getRecords()
+    public function getRecords($paginate = true)
     {
         $records = $this->getBuilder();
 
@@ -117,7 +129,11 @@ class Table
             $records = $this->getFilterForm()->handle($this, $records);
         }
 
-        $records = $records->paginate($this->perPage);
+        if ($paginate) {
+            $records = $records->paginate($this->perPage);
+        } else {
+            $records = $records->get();
+        }
 
         return $records;
     }
@@ -206,5 +222,55 @@ class Table
     public function getBuilder()
     {
         return $this->getRepository()->allWithBuilder()->with($this->with);
+    }
+
+    public function toExportable():?ExportTable
+    {
+        if ($this->isExportable()) {
+            throw new \Exception("Define a toExportable method in your Table class or turn off the export feature.");
+        }
+
+        return null;
+    }
+
+    public function setExportable($exportable)
+    {
+        $this->exportable = $exportable;
+
+        $this->prepareButtons();
+
+        return $this;
+    }
+
+    public function getHeaders()
+    {
+        $columns = [];
+
+        $module = $this->getModule();
+        $module = explode('.', $module)[0];
+
+        foreach ($this->getColumns() as $column => $value) {
+            $col = &$column;
+
+            if (is_numeric($col)) {
+                $col = $value;
+            }
+
+            $columns[] = $module . '::' . $this->getEntity() . '.table.columns.' . $col;
+        }
+        // dd($columns);
+
+        return $columns;
+    }
+
+    public function getEntity()
+    {
+        $module = explode('.', $this->getModule());
+
+        if (isset($module[1])) {
+            return $module[1];
+        }
+
+        return str_plural($module[0]);
     }
 }

@@ -95,4 +95,26 @@ class TableSpec extends LaravelObjectBehavior
         $this->setRepository(FaqRepository::class);
         $this->getBuilder()->shouldBeAnInstanceOf(Builder::class);
     }
+
+    public function it_must_return_columns_for_export()
+    {
+        $this->isExportable()->shouldReturn(false);
+
+        $this->toExportable()->shouldBe(null);
+
+        $this->setExportable(true)->shouldThrow('\Exception')->duringToExportable();
+    }
+
+    public function it_must_have_action_added_when_exportable()
+    {
+        $this->getButtons()->shouldHaveCount(1);
+        $this->setExportable(true)->getButtons()->shouldHaveCount(2);
+    }
+
+    public function it_can_return_valid_header()
+    {
+        $this->addColumn('question');
+        $this->getHeaders()
+            ->shouldBe(['faq::faqs.table.columns.question']);
+    }
 }

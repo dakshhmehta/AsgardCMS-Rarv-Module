@@ -7,7 +7,8 @@
         "php": ">=7.0.0",
         "composer/installers": "~1.0",
         "idavoll/core-module": "~3.0|4.0.x-dev",
-        "tormjens/eventy": "dev-master"
+        "tormjens/eventy": "dev-master",
+        "maatwebsite/excel": "^3.1"
     },
     "require-dev": {
         "phpunit/phpunit": "~6.0",
@@ -23,19 +24,17 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "authors": [
-        {
-            "name": "Daksh Mehta",
-            "email": "dm@rimail.in"
-        }
-    ],
+    "authors": [{
+        "name": "Daksh Mehta",
+        "email": "dm@rimail.in"
+    }],
     "extra": {
         "laravel": {
             "providers": [
                 "Modules\\Rarv\\Providers\\RarvServiceProvider"
             ],
             "aliases": {
-                
+
             }
         }
     },
