@@ -17,7 +17,7 @@ class Table
     protected $links      = [];
     protected $filterForm = null;
 
-    protected $with = []; // Relationships to eagerload.
+    public $with = []; // Relationships to eagerload.
 
     protected $exportable = false;
 
