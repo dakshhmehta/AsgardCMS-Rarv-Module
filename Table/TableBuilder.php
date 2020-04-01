@@ -54,6 +54,7 @@ class TableBuilder
         $columns = $this->table->getColumns();
         $records = $this->table->getRecords();
         $filterForm = $this->table->getFilterForm();
+        $isMassDeletable = $this->table->isMassDeletable();
 
         if ($filterForm) {
             $filterForm = $this->formBuilder->setForm($filterForm);
@@ -67,7 +68,8 @@ class TableBuilder
             'columns',
             'buttons',
             'links',
-            'filterForm'
+            'filterForm',
+            'isMassDeletable'
         ));
     }
 

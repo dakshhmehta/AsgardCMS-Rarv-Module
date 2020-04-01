@@ -23,12 +23,42 @@ class Table
 
     public $perPage = 25;
 
+    protected $massDeletable = false;
+
     public function __construct($module)
     {
         $this->module = $module;
 
         $this->prepareButtons();
         $this->prepareLinks();
+
+        if(request()->get('_action') == 'doMassDelete'){
+            $this->performMassDeletion();
+        }
+    }
+    
+    protected function performMassDeletion(){
+        $ids = request()->get('deleteId', []);
+
+        if(count($ids) == 0){
+            return redirect()->back()->withError('Select atleast 1 record for deletion.')->withInput();
+        }
+
+        $deleted = 0;
+        foreach($ids as &$id){
+            $model = $this->getRepository()->find($id);
+
+            if($model){
+                $this->getRepository()->destroy($model);
+                $deleted++;
+            }
+        }
+
+        if($deleted > 0){
+            session()->flash('success', $deleted.' records deleted successfully.');
+        }
+
+        return true;
     }
 
     public function isExportable():bool
@@ -272,5 +302,16 @@ class Table
         }
 
         return str_plural($module[0]);
+    }
+
+    public function isMassDeletable()
+    {
+        return $this->massDeletable;
+    }
+
+    public function setMassDeletable(bool $deletable)
+    {
+        $this->massDeletable = $deletable;
+        return $this;
     }
 }

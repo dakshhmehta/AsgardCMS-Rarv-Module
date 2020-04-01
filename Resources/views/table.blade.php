@@ -44,87 +44,102 @@
                         </div>
                     </div>
 
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-hover">
-                            <thead>
-                            <tr>
-                                @foreach($headers as &$header)
-                                    @if(strpos($header, '__index') !== false)
-                                        <th>#</th>
-                                    @else
-                                        <th>{{ trans($header) }}</th>
+                    <form method="GET">
+                        @if($isMassDeletable)
+                        <input type="hidden" name="_action" value="doMassDelete" />
+                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete Selected</button><br/><br/>
+                        @endif
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    @if($isMassDeletable == true)
+                                        <th><input type="checkbox" id="checkAll" /></th>
                                     @endif
-                                @endforeach
-                                @if(count($links) > 0)
-                                <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
-                                @endif
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php if (isset($records)) : ?>
-                                <?php foreach ($records as $i => $record) : ?>
-                            <tr>
-                                @foreach($columns as $column => $value)
-                                <td>
-                                    @if($value == '__index')
-                                    {{ $i + 1}}
-                                    @elseif(is_string($value))
-                                        {!! $record->{$value} !!}
+                                    @foreach($headers as &$header)
+                                        @if(strpos($header, '__index') !== false)
+                                            <th>#</th>
                                         @else
-                                        {!! transform($record, $value) !!}
+                                            <th>{{ trans($header) }}</th>
+                                        @endif
+                                    @endforeach
+                                    @if(count($links) > 0)
+                                    <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
                                     @endif
-                                </td>
-                                @endforeach
-                                @if(count($links) > 0)
-                                <td>
-                                    <div class="btn-group">
-                                        @foreach($links as &$link)
-                                        @can($link->getPolicy(), $record)
-                                            <a href="{{ $link->getURL($record) }}" 
-                                                class="btn btn-{{ $link->getColor() }} btn-flat" 
-                                                {!! $link->getAttributesLine() !!}>
-                                                @if($link->getIcon() != '')
-                                                <i class="{{ $link->getIcon() }}"></i>
-                                                @endif
-                                                &nbsp;{{ $link->getLabel() }}
-                                            </a>
-                                        @endcan
-                                        {{-- @cannot($link->getPolicy(), $record)
-                                            @php $link->getURL($record) @endphp
-                                            <a disabled="disabled" 
-                                                class="btn btn-{{ $link->getColor() }} btn-flat" 
-                                                {!! $link->getAttributesLine() !!}>
-                                                @if($link->getIcon() != '')
-                                                <i class="{{ $link->getIcon() }}"></i>
-                                                @endif
-                                                &nbsp;{{ $link->getLabel() }}
-                                            </a>
-                                        @endcannot --}}
-                                        @endforeach
-                                    </div>
-                                </td>
-                                @endif
-                            </tr>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                @foreach($headers as &$header)
-                                    @if(strpos($header, '__index') !== false)
-                                        <th>#</th>
-                                    @else
-                                        <th>{{ trans($header) }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php if (isset($records)) : ?>
+                                    <?php foreach ($records as $i => $record) : ?>
+                                <tr>
+                                    @if($isMassDeletable == true)
+                                        <td><input type="checkbox" class="delete" name="deleteId[]" value="{{ $record->id }}" /></td>
                                     @endif
-                                @endforeach
-                                @if(count($links) > 0)
-                                <th>{{ trans('core::core.table.actions') }}</th>
-                                @endif
-                            </tr>
-                            </tfoot>
-                        </table>
-                        <!-- /.box-body -->
-                    </div>
+                                    @foreach($columns as $column => $value)
+                                    <td>
+                                        @if($value == '__index')
+                                        {{ $i + 1}}
+                                        @elseif(is_string($value))
+                                            {!! $record->{$value} !!}
+                                            @else
+                                            {!! transform($record, $value) !!}
+                                        @endif
+                                    </td>
+                                    @endforeach
+                                    @if(count($links) > 0)
+                                    <td>
+                                        <div class="btn-group">
+                                            @foreach($links as &$link)
+                                            @can($link->getPolicy(), $record)
+                                                <a href="{{ $link->getURL($record) }}" 
+                                                    class="btn btn-{{ $link->getColor() }} btn-flat" 
+                                                    {!! $link->getAttributesLine() !!}>
+                                                    @if($link->getIcon() != '')
+                                                    <i class="{{ $link->getIcon() }}"></i>
+                                                    @endif
+                                                    &nbsp;{{ $link->getLabel() }}
+                                                </a>
+                                            @endcan
+                                            {{-- @cannot($link->getPolicy(), $record)
+                                                @php $link->getURL($record) @endphp
+                                                <a disabled="disabled" 
+                                                    class="btn btn-{{ $link->getColor() }} btn-flat" 
+                                                    {!! $link->getAttributesLine() !!}>
+                                                    @if($link->getIcon() != '')
+                                                    <i class="{{ $link->getIcon() }}"></i>
+                                                    @endif
+                                                    &nbsp;{{ $link->getLabel() }}
+                                                </a>
+                                            @endcannot --}}
+                                            @endforeach
+                                        </div>
+                                    </td>
+                                    @endif
+                                </tr>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    @if($isMassDeletable == true)
+                                    <th></th>
+                                    @endif
+                                    @foreach($headers as &$header)
+                                        @if(strpos($header, '__index') !== false)
+                                            <th>#</th>
+                                        @else
+                                            <th>{{ trans($header) }}</th>
+                                        @endif
+                                    @endforeach
+                                    @if(count($links) > 0)
+                                    <th>{{ trans('core::core.table.actions') }}</th>
+                                    @endif
+                                </tr>
+                                </tfoot>
+                            </table>
+                            <!-- /.box-body -->
+                        </div>
+                    </form>
 
                     <div class="row">
                         <div class="col-md-12 text-center">
@@ -141,4 +156,11 @@
 
 @section('footer')
     <a data-toggle="modal" data-target="#keyboardShortcutsModal"><i class="fa fa-keyboard-o"></i></a> &nbsp;
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#checkAll").click(function(){
+                $('input:checkbox.delete').not(this).prop('checked', this.checked);
+            });
+        });
+    </script>
 @stop

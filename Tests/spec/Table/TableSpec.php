@@ -117,4 +117,10 @@ class TableSpec extends LaravelObjectBehavior
         $this->getHeaders()
             ->shouldBe(['faq::faqs.table.columns.question']);
     }
+
+    public function it_can_be_mass_deletable()
+    {
+        $this->isMassDeletable()->shouldBe(false);
+        $this->setMassDeletable(true)->isMassDeletable()->shouldBe(true);
+    }
 }
