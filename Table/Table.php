@@ -32,29 +32,30 @@ class Table
         $this->prepareButtons();
         $this->prepareLinks();
 
-        if(request()->get('_action') == 'doMassDelete'){
+        if (request()->get('_action') == 'doMassDelete') {
             $this->performMassDeletion();
         }
     }
     
-    protected function performMassDeletion(){
+    protected function performMassDeletion()
+    {
         $ids = request()->get('deleteId', []);
 
-        if(count($ids) == 0){
+        if (count($ids) == 0) {
             return redirect()->back()->withError('Select atleast 1 record for deletion.')->withInput();
         }
 
         $deleted = 0;
-        foreach($ids as &$id){
+        foreach ($ids as &$id) {
             $model = $this->getRepository()->find($id);
 
-            if($model){
+            if ($model) {
                 $this->getRepository()->destroy($model);
                 $deleted++;
             }
         }
 
-        if($deleted > 0){
+        if ($deleted > 0) {
             session()->flash('success', $deleted.' records deleted successfully.');
         }
 
