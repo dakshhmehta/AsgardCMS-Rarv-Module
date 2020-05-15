@@ -8,6 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Modules\Rarv\Channels\SMSChannel;
 use Modules\Rarv\Channels\SMSMessage;
+use Modules\Rarv\Contracts\SMSable;
 
 class SendSMS extends Notification
 {
@@ -39,7 +40,13 @@ class SendSMS extends Notification
 
     public function toSMS($notifiable)
     {
-        $message = new SMSMessage(env('MOBILE_NO'), $this->message, $notifiable);
+        $mobile = env('MOBILE_NO');
+
+        if($notifiable instanceof SMSable){
+            $mobile = $notifiable->getMobileNo();
+        }
+
+        $message = new SMSMessage($mobile, $this->message, $notifiable);
         return $message;
     }
 

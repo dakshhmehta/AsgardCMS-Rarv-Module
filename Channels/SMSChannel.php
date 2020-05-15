@@ -13,16 +13,16 @@ class SMSChannel
         // First attempt to use the URL provided in setting, if not provided, 
         // fall back to use from config file, which is RI's API link.
         $api_url = setting('rarv::sms_http_api_url', null, false);
-        if($api_url == false){
+        if ($api_url == false) {
             $api_url = config('asgard.rarv.config.sms_api_url');
         }
 
-        
+
         $api_url = str_replace('##mobileNo##', $message->getMobileNo(), $api_url);
         $api_url = str_replace('##senderId##', setting('rarv::sender_id'), $api_url);
         $api_url = str_replace('##apiKey##', setting('rarv::api_key'), $api_url);
         $api_url = str_replace('##message##', urlencode($message->getMessage()), $api_url);
-        
+
         \Log::debug($api_url);
 
         // Get cURL resource
@@ -47,8 +47,8 @@ class SMSChannel
 
         curl_close($curl);
 
-        \Log::debug($response);
-        \Log::debug($err);
+        \Log::debug('SMS Response '.$response);
+        \Log::debug('SMS Error '.$err);
 
         return $response;
     }
