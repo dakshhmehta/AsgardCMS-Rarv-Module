@@ -12,6 +12,8 @@ class Button implements \ArrayAccess
     protected $icon;
     protected $attributes = [];
 
+    protected $class = '';
+
     public $weight = 0;
 
     protected $permission = true;
@@ -198,5 +200,19 @@ class Button implements \ArrayAccess
         $this->policy = $policy;
 
         return $this;
+    }
+
+    // @todo Test
+    public function setClass($class)
+    {
+        $this->class = $class;
+
+        return $this;
+    }
+
+    // @todo Test
+    public function getClass()
+    {
+        return $this->class;
     }
 }

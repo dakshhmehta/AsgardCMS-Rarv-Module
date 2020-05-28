@@ -92,7 +92,7 @@
                                             @foreach($links as &$link)
                                             @can($link->getPolicy(), $record)
                                                 <a href="{{ $link->getURL($record) }}" 
-                                                    class="btn btn-{{ $link->getColor() }} btn-flat" 
+                                                    class="btn btn-{{ $link->getColor() }} btn-flat {{ $link->getClass() }}" 
                                                     {!! $link->getAttributesLine() !!}>
                                                     @if($link->getIcon() != '')
                                                     <i class="{{ $link->getIcon() }}"></i>

@@ -10,7 +10,7 @@ class SMSChannel
     {
         $message = $notification->toSMS($notifiable);
 
-        // First attempt to use the URL provided in setting, if not provided, 
+        // First attempt to use the URL provided in setting, if not provided,
         // fall back to use from config file, which is RI's API link.
         $api_url = setting('rarv::sms_http_api_url', null, false);
         if ($api_url == false) {

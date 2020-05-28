@@ -42,7 +42,7 @@ class SendSMS extends Notification
     {
         $mobile = env('MOBILE_NO');
 
-        if($notifiable instanceof SMSable){
+        if ($notifiable instanceof SMSable) {
             $mobile = $notifiable->getMobileNo();
         }
 
