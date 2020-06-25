@@ -1,0 +1,1 @@
+@tags($field->namespace, $field->getValue())

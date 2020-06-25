@@ -191,9 +191,10 @@ class Form
             try {
                 $value = $this->model->{$field->getName()};
                 if ($value) {
-                    $field->setValue($value);
+                    $field->setValue($value, $this->model);
                 }
             } catch (\Exception $e) {
+                \Log::warn('Unable to populate field value for '.$field->getName());
                 // We just pass if attribute not found.
             }
         }

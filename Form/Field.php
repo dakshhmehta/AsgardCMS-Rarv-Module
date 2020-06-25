@@ -158,7 +158,7 @@ class Field
         return $this;
     }
 
-    public function setValue($value)
+    public function setValue($value, $entity = null)
     {
         $this->value = $value;
 
