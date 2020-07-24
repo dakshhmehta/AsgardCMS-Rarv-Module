@@ -35,7 +35,7 @@ class TableBuilder
         return $this;
     }
 
-    public function view()
+    public function view($viewPath = 'rarv::table')
     {
         if (!$this->table) {
             throw new \Exception('Table not set', -1);
@@ -60,7 +60,7 @@ class TableBuilder
             $filterForm = $this->formBuilder->setForm($filterForm);
         }
 
-        return view('rarv::table', compact(
+        return view($viewPath, compact(
             'module',
             'entity',
             'records',
