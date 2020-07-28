@@ -84,4 +84,7 @@
   .demonstration{
     font-weight: bold;
   }
+  .el-input__inner{
+    height: 34px;
+  }
 </style>
