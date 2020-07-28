@@ -2,7 +2,7 @@
 
 @stack($name . '_input_start')
 
-<div class="form-group {{ $col }} {{ isset($attributes['required']) ? 'required' : '' }} {{ $errors->has($name) ? 'has-error' : '' }}">
+<div class="{{ isset($attributes['required']) ? 'required' : '' }} {{ $errors->has($name) ? 'has-error' : '' }}">
     {!! Form::label($name, $text, ['class' => 'control-label']) !!}
 
     <div class="{{ $icon == '' ? '' : 'input-group' }}">

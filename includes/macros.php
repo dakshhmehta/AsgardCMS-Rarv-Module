@@ -23,7 +23,7 @@ Form::component('textareaGroup', 'rarv::partials.form.textarea_group', [
 ]);
 
 Form::component('dateGroup', 'rarv::partials.form.date_group', [
-    'name', 'text', 'icon', 'attributes' => ['type' => 'date', 'future' => true], 'value' => null, 'col' => 'col-md-6',
+    'name', 'text', 'icon', 'attributes' => ['type' => 'date', 'future' => true], 'value' => null, 'col' => 'col-md-4',
 ]);
 
 /**
