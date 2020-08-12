@@ -4,6 +4,7 @@ namespace Modules\Rarv\Form;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\ViewErrorBag;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Modules\Rarv\Form\FormBuilder;
 
 class Form
@@ -108,11 +109,23 @@ class Form
             return true;
         }
 
+        $defaultLocale = app()->getLocale();
         foreach ($this->getFields() as &$field) {
-            $rules[$field->getName()] = $field->getRules();
-            $input[$field->getName()] = $field->getValue();
-        }
+            if ($field->isTranslatable()) {
+                foreach (LaravelLocalization::getSupportedLocales() as $locale => $language) {
+                    $field->setLocale($locale);
 
+                    $rules[$locale . '.' . $field->getName()] = $field->getRules();
+                    $input[$locale][$field->getName()] = $field->getValue();
+                }
+                $field->setLocale($defaultLocale);
+            } else {
+                $rules[$field->getName()] = $field->getRules();
+                $input[$field->getName()] = $field->getValue();
+            }
+        }
+        $defaultLocale = app()->getLocale();
+        
         $validator = app('validator')->make($input, $rules);
 
         if ($validator->fails()) {
@@ -160,7 +173,7 @@ class Form
             return $module[1];
         }
 
-        return str_plural($module[0]);
+        return \Str::plural($module[0]);
     }
 
     public function getModule()
@@ -188,13 +201,19 @@ class Form
     public function populateValues()
     {
         foreach ($this->fields as &$field) {
+            if ($field->isTranslatable()) {
+                if ($this->model && $this->model->getAttribute($field->getName())) {
+                    // $field->setValue($this->model->translate($this->getLocale())->{$this->name};
+                }
+            }
+
             try {
                 $value = $this->model->{$field->getName()};
                 if ($value) {
                     $field->setValue($value, $this->model);
                 }
             } catch (\Exception $e) {
-                \Log::warn('Unable to populate field value for '.$field->getName());
+                \Log::warn('Unable to populate field value for ' . $field->getName());
                 // We just pass if attribute not found.
             }
         }
@@ -217,14 +236,14 @@ class Form
         }
 
         if ($mode == 'create') {
-            return route('admin.' . $this->getModule() .'.'. $this->getEntity() . '.store');
+            return route('admin.' . $this->getModule() . '.' . $this->getEntity() . '.store');
         } else {
-            return route('admin.' . $this->getModule() .'.'. $this->getEntity() . '.update', $this->getModel()->id); // @todo test case missing
+            return route('admin.' . $this->getModule() . '.' . $this->getEntity() . '.update', $this->getModel()->id); // @todo test case missing
         }
     }
 
     public function getRedirectUrl($mode)
     {
-        return route('admin.' . $this->getModule() . '.' . $this->getEntity().'.index');
+        return route('admin.' . $this->getModule() . '.' . $this->getEntity() . '.index');
     }
 }

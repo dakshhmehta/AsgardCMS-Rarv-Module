@@ -17,6 +17,7 @@ class TextFieldTest extends TestCase {
 
         if(! $question){
             $question = Faq::create([
+                'heading_id' => $heading->id,
                 'en' => [
                     'question' => 'Q in english',
                     'answer' => 'A in english',
@@ -31,18 +32,18 @@ class TextFieldTest extends TestCase {
         return (new TextField('question', $question));
     }
 
-    // public function test_text_field_is_initializable()
-    // {
-    //     $f = $this->field();
+    public function test_text_field_is_initializable()
+    {
+        $f = $this->field();
 
-    //     $this->assertEquals($f->getValue(), 'Q in english');
-    // }
+        $this->assertEquals('Q in english', $f->getValue());
+    }
 
-    // public function test_text_field_can_retrive_translatable_value()
-    // {
-    //     $f = $this->field();
-    //     $this->assertEquals($f->getValue('gu'), 'Q in gujarati');
-    // }
+    public function test_text_field_can_retrive_translatable_value()
+    {
+        $f = $this->field()->setTranslatable();
+        $this->assertEquals('Q in gujarati', $f->setLocale('gu')->getValue());
+    }
 
     public function test_field_returns_view_based_on_translatable()
     {

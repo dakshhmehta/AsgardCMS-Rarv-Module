@@ -1,4 +1,4 @@
-@stack("{$locale}[{$field->getName()}]" . '_input_start')
+@stack($field->getName() . '_input_start')
 
 <div class="{{ (in_array('required', $field->getRules())) ? 'required' : '' }} {{ $errors->has($locale.$field->getName()) ? 'has-error' : '' }}">
     {!! Form::label("{$locale}[{$field->getName()}]", $field->getLabel(), ['class' => 'control-label']) !!}
@@ -11,10 +11,10 @@
         <div class="input-group-addon"><i class="fa fa-{{ data_get($field->getParameters(), 'icon') }}"></i></div>
         @endif
 
-        <input name="{{ $locale }}[{{$field->getName()}}]" id="{{ $locale }}[{{$field->getName()}}]" type="text" value="{{ $field->getValue($locale) }}" class="form-control" {{ (in_array('required', $field->getRules())) ? 'required' : '' }}>
+        <input name="{{ $locale }}[{{$field->getName()}}]" id="{{ $locale }}[{{$field->getName()}}]" type="text" value="{{ old($locale.'.'.$field->getName(), $field->setLocale($locale)->getValue()) }}" class="form-control" {{ (in_array('required', $field->getRules())) ? 'required' : '' }}>
     </div>
 
-    {!! $errors->first("{$locale}[{$field->getName()}]", '<p class="help-block">:message</p>') !!}
+    {!! $errors->first("{$locale}.{$field->getName()}", '<p class="help-block">:message</p>') !!}
 </div>
 
-@stack("{$locale}[{$field->getName()}]" . '_input_end')
+@stack($field->getName() . '_input_end')

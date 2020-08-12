@@ -21,20 +21,20 @@ class TextField extends Field {
         return $this->model;
     }
 
-    public function getValue()
-    {
-        $this->value = parent::getValue();
+    // public function getValue()
+    // {
+    //     $this->value = parent::getValue();
 
-        if($this->isTranslatable() and !$this->value and $this->model && $this->model->getAttribute($this->name)){
-            $this->value = $this->model->translate($this->locale)->{$this->name};
-        }
+    //     if ($this->isTranslatable() and !$this->value and $this->model && $this->model->getAttribute($this->name)) {
+    //         $this->value = $this->model->translate($this->getLocale())->{$this->name};
+    //     }
 
-        return $this->value;
-    }
+    //     return $this->value;
+    // }
 
     public function getView()
     {
-        if($this->isTranslatable()){
+        if ($this->isTranslatable()) {
             return 'rarv::partials.form.fields.translatable.text';
         }
 

@@ -44,6 +44,22 @@ class FieldTest extends BaseTestCase {
         $this->assertTrue($this->field()->setValue('dax')->setRules(['required'])->validate());
     }
 
+    public function test_it_can_set_get_translatable_value()
+    {
+        $field = $this->field()->setTranslatable();
+        $field->setValue([
+            'en' => 'EN',
+            'gu' => 'GU',
+        ]);
+
+        $this->assertEquals('EN', $field->getValue());
+
+        app()->setLocale('gu');
+        $this->assertEquals('GU', $field->getValue());
+
+        $this->assertEquals('EN', $field->setLocale('en')->getValue());
+    }
+
     public function test_it_can_set_get_label()
     {
         $this->assertEquals('Question: ', $this->field()->setLabel('Question: ')->getLabel());

@@ -2,6 +2,8 @@
 
 namespace Modules\Rarv\Form;
 
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
 class FormBuilder
 {
     protected $mode = 'create';
@@ -75,9 +77,16 @@ class FormBuilder
             return redirect()->back()->withErrors($this->form->getErrors())->withInput();
         }
 
+        
         $data = [];
         foreach ($this->form->getFields() as &$field) {
-            $data[$field->getName()] = $field->getValue();
+            if ($field->isTranslatable()) {
+                foreach (LaravelLocalization::getSupportedLocales() as $locale => $language) {
+                    $data[$locale][$field->getName()] = $field->setLocale($locale)->getValue();
+                }
+            } else {
+                $data[$field->getName()] = $field->getValue();
+            }
         }
 
         if ($this->mode == 'create') {

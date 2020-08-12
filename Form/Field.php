@@ -23,7 +23,7 @@ class Field
     protected $view = null;
 
     protected $translatable = false;
-    protected $locale = 'en';
+    protected $locale = null;
 
     public function __construct($name, $type, $parameters = [])
     {
@@ -176,7 +176,13 @@ class Field
     public function getValue()
     {
         if (!$this->value) {
-            $this->value = request()->get($this->name, null);
+            if ($this->isTranslatable()) {
+                return data_get(request()->get($this->getLocale(), null), $this->getName());
+            } else {
+                $this->value = request()->get($this->getName(), null);
+            }
+        } elseif ($this->isTranslatable() and isset($this->value[$this->getLocale()])) {
+            return $this->value[$this->getLocale()];
         }
 
         return $this->value;
@@ -282,6 +288,10 @@ class Field
 
     public function getLocale()
     {
+        if (!$this->locale) {
+            return app()->getLocale();
+        }
+
         return $this->locale;
     }
 }

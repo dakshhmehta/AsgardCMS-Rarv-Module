@@ -11,6 +11,12 @@ use Tests\TestCase;
 
 class FormTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        config()->set('translatable.locales', ['en', 'gu']);
+    }
+
     public function form()
     {
         return (new Form('faq.faqs'));
@@ -113,6 +119,25 @@ class FormTest extends TestCase
 
         $this->assertTrue($form->validate());
         $this->assertCount(0, $form->getErrors());
+    }
+
+    public function test_it_can_validate_translatable_field()
+    {
+        $form = $this->form();
+
+        $form->setField('name', 'normalInput')
+            ->setTranslatable()
+            ->setRules(['required'])->setValue([
+                'en' => 'English',
+                'gu' => '',
+            ]); // fails
+        $form->setField('age', 'normalInput')
+            ->setRules(['numeric'])->setValue('dax'); // fails
+        $form->setField('gender', 'normalInput')
+            ->setRules(['required'])->setValue('male'); // passes
+
+        $this->assertFalse($form->validate());
+        $this->assertCount(2, $form->getErrors());
     }
 
     public function test_it_can_set_get_repository()
