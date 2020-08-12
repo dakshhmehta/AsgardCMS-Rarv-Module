@@ -5,4 +5,5 @@ suites:
     src_path: .
     spec_path: Tests
 extensions:
-  PhpSpec\Laravel\Extension\LaravelExtension: ~
+  PhpSpec\Laravel\Extension\LaravelExtension:
+    framework_path: "../../../bootstrap/app.php"

@@ -6,7 +6,7 @@
     <span class="text-danger">*</span>
     @endif
 
-    <div class="{{ $icon == '' ? 'form-group' : 'input-group' }}">
+    <div class="{{ $icon == '' ? '' : 'input-group' }}">
         @if($icon != '')
         <div class="input-group-addon"><i class="fa fa-{{ $icon }}"></i></div>
         @endif

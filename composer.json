@@ -17,7 +17,6 @@
     "autoload-dev": {
         "psr-4": {
             "Modules\\Rarv\\": ".",
-            "Modules\\": "Modules/",
             "App\\": "../../app/"
         }
     },

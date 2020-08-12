@@ -3,6 +3,7 @@
 namespace Modules\Rarv\Form;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ViewErrorBag;
 
 class Field
@@ -20,6 +21,9 @@ class Field
     protected $permission = true;
 
     protected $view = null;
+
+    protected $translatable = false;
+    protected $locale = 'en';
 
     public function __construct($name, $type, $parameters = [])
     {
@@ -101,10 +105,11 @@ class Field
         return $this->view;
     }
 
-    public function render()
+    public function render($locale = null)
     {
+        $this->locale = $locale;
         if ($this->getView()) {
-            return view($this->getView(), ['field' => $this]);
+            return view($this->getView(), ['field' => $this, 'locale' => $locale]);
         }
 
         $builder = app('form');
@@ -130,7 +135,7 @@ class Field
         try {
             $html = $builder->macroCall($this->type, $parameters);
         } catch (\Exception $e) {
-            \Log::error($e);
+            Log::error($e);
             // Its macro
             $html = $builder->componentCall($this->type, $parameters);
         }
@@ -254,5 +259,29 @@ class Field
         if ($this->getValue() !== null) {
             $query->where($this->getName(), 'LIKE', '%' . $this->getValue() . '%');
         }
+    }
+
+    public function setTranslatable($translatable = true)
+    {
+        $this->translatable = $translatable;
+
+        return $this;
+    }
+
+    public function isTranslatable()
+    {
+        return $this->translatable;
+    }
+
+    public function setLocale($l)
+    {
+        $this->locale = $l;
+
+        return $this;
+    }
+
+    public function getLocale()
+    {
+        return $this->locale;
     }
 }
