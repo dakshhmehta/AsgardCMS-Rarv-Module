@@ -54,7 +54,7 @@
                                 <thead>
                                 <tr>
                                     @if($isMassDeletable == true)
-                                        <th><input type="checkbox" id="checkAll" /></th>
+                                        <th class="hidden-print"><input type="checkbox" id="checkAll" /></th>
                                     @endif
                                     @foreach($headers as &$header)
                                         @if(strpos($header, '__index') !== false)
@@ -73,7 +73,7 @@
                                     <?php foreach ($records as $i => $record) : ?>
                                 <tr>
                                     @if($isMassDeletable == true)
-                                        <td><input type="checkbox" class="delete" name="deleteId[]" value="{{ $record->id }}" /></td>
+                                        <td class="hidden-print"><input type="checkbox" class="delete" name="deleteId[]" value="{{ $record->id }}" /></td>
                                     @endif
                                     @foreach($columns as $column => $value)
                                     <td>
@@ -122,7 +122,7 @@
                                 <tfoot>
                                 <tr>
                                     @if($isMassDeletable == true)
-                                    <th></th>
+                                    <th class="hidden-print"></th>
                                     @endif
                                     @foreach($headers as &$header)
                                         @if(strpos($header, '__index') !== false)
@@ -132,7 +132,7 @@
                                         @endif
                                     @endforeach
                                     @if(count($links) > 0)
-                                    <th>{{ trans('core::core.table.actions') }}</th>
+                                    <th class="hidden-print">{{ trans('core::core.table.actions') }}</th>
                                     @endif
                                 </tr>
                                 </tfoot>
