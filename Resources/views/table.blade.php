@@ -12,7 +12,7 @@
 
 @section('content')
     @if($filterForm)
-    <div class="row">
+    <div class="row hidden-print">
         <div class="col-xs-12">
             {!! $filterForm->view() !!}
         </div>
@@ -21,7 +21,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <div class="row">
+            <div class="row hidden-print">
                 <div class="btn-group pull-right" style="margin: 0 15px 15px 0;">
                     @foreach($buttons as &$button)
                     <a href="{{ $button->getURL() }}" class="btn btn-{{ $button->getColor() }} btn-flat" style="padding: 4px 10px;" {!! $button->getAttributesLine() !!}>
@@ -38,7 +38,7 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <div class="row">
+                    <div class="row hidden-print">
                         <div class="col-md-12 text-center">
                             {!! $records->appends(request()->all())->links() !!}
                         </div>
@@ -47,7 +47,7 @@
                     <form method="GET">
                         @if($isMassDeletable)
                         <input type="hidden" name="_action" value="doMassDelete" />
-                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Delete Selected</button><br/><br/>
+                        <button type="submit" class="btn btn-danger hidden-print"><i class="fa fa-trash"></i> Delete Selected</button><br/><br/>
                         @endif
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
@@ -64,7 +64,7 @@
                                         @endif
                                     @endforeach
                                     @if(count($links) > 0)
-                                    <th data-sortable="false">{{ trans('core::core.table.actions') }}</th>
+                                    <th class="hidden-print" data-sortable="false">{{ trans('core::core.table.actions') }}</th>
                                     @endif
                                 </tr>
                                 </thead>
@@ -87,7 +87,7 @@
                                     </td>
                                     @endforeach
                                     @if(count($links) > 0)
-                                    <td>
+                                    <td class="hidden-print">
                                         <div class="btn-group">
                                             @foreach($links as &$link)
                                             @can($link->getPolicy(), $record)
@@ -141,7 +141,7 @@
                         </div>
                     </form>
 
-                    <div class="row">
+                    <div class="row hidden-print">
                         <div class="col-md-12 text-center">
                             {!! $records->appends(request()->all())->links() !!}
                         </div>
