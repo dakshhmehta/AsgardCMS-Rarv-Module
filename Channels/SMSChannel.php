@@ -25,26 +25,26 @@ class SMSChannel
 
         \Log::debug($api_url);
         // Get cURL resource
-        // $curl = curl_init();
+        $curl = curl_init();
 
-        // curl_setopt_array($curl, array(
-        //     CURLOPT_PORT           => "80",
-        //     CURLOPT_URL            => trim($api_url),
-        //     CURLOPT_RETURNTRANSFER => true,
-        //     CURLOPT_ENCODING       => "",
-        //     CURLOPT_MAXREDIRS      => 10,
-        //     CURLOPT_TIMEOUT        => 30,
-        //     CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
-        //     CURLOPT_CUSTOMREQUEST  => "GET",
-        //     CURLOPT_HTTPHEADER     => array(
-        //         "Cache-Control: no-cache",
-        //     ),
-        // ));
+        curl_setopt_array($curl, array(
+            CURLOPT_PORT           => "80",
+            CURLOPT_URL            => trim($api_url),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING       => "",
+            CURLOPT_MAXREDIRS      => 10,
+            CURLOPT_TIMEOUT        => 30,
+            CURLOPT_HTTP_VERSION   => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST  => "GET",
+            CURLOPT_HTTPHEADER     => array(
+                "Cache-Control: no-cache",
+            ),
+        ));
 
-        // $response = curl_exec($curl);
-        // $err      = curl_error($curl);
+        $response = curl_exec($curl);
+        $err      = curl_error($curl);
 
-        // curl_close($curl);
+        curl_close($curl);
 
         $response = file_get_contents($api_url);
 
