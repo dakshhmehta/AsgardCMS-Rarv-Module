@@ -39,7 +39,7 @@ class FormBuilder
         return $this->form;
     }
 
-    public function view()
+    public function view($path = null)
     {
         if (!$this->form) {
             throw new \Exception('Form is not defined', -1);
@@ -63,7 +63,11 @@ class FormBuilder
 
         $model = $this->form->getModel();
 
-        return view($this->form->viewPath($this), compact('module', 'entity', 'route', 'fields', 'model'));
+        if (! $path) {
+            $path = $this->form->viewPath($this);
+        }
+
+        return view($path, compact('module', 'entity', 'route', 'fields', 'model'));
     }
 
     public function handle()

@@ -3,6 +3,7 @@
 namespace Modules\Rarv\Form;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ViewErrorBag;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 use Modules\Rarv\Form\FormBuilder;
@@ -213,7 +214,7 @@ class Form
                     $field->setValue($value, $this->model);
                 }
             } catch (\Exception $e) {
-                \Log::warn('Unable to populate field value for ' . $field->getName());
+                Log::warning('Unable to populate field value for ' . $field->getName());
                 // We just pass if attribute not found.
             }
         }

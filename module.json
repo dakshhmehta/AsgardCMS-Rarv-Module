@@ -8,9 +8,7 @@
     "order": 1,
     "providers": [
         "Modules\\Rarv\\Providers\\RarvServiceProvider",
-        "Modules\\Rarv\\Providers\\RouteServiceProvider",
-        "TorMorten\\Eventy\\EventServiceProvider",
-        "TorMorten\\Eventy\\EventBladeServiceProvider" 
+        "Modules\\Rarv\\Providers\\RouteServiceProvider"
     ],
     "aliases": {},
     "files": [
